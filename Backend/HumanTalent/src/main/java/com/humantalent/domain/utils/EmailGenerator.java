@@ -1,4 +1,4 @@
-package com.humantalent.domain.model;
+package com.humantalent.domain.utils;
 
 import com.humantalent.domain.model.employee.Employee;
 
