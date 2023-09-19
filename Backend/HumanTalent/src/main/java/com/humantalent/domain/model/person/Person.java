@@ -20,6 +20,9 @@ import java.time.LocalDateTime;
 @Table(name = "persons")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Person implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     @Embedded
     @AttributeOverrides({
@@ -41,8 +44,7 @@ public abstract class Person implements Serializable {
     @EqualsAndHashCode.Include
     private PersonIdType idType;
 
-    @Id
-    @Column(nullable = false, name = "person_id", length = 50)
+    @Column(nullable = false, unique = true, name = "identification_num", length = 50)
     @EqualsAndHashCode.Include
     private String idNumber;
 
