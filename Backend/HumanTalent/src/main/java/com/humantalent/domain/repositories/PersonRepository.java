@@ -1,4 +1,4 @@
-package com.humantalent.domain.ports;
+package com.humantalent.domain.repositories;
 
 import com.humantalent.domain.model.person.Person;
 import org.springframework.data.jpa.repository.JpaRepository;
