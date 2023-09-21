@@ -1,15 +1,15 @@
 package com.humantalent.domain.ports;
 
 import com.humantalent.domain.model.person.Person;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
 @NoRepositoryBean
-public interface PersonRepository extends CrudRepository<Person, Integer> {
+public interface PersonRepository extends JpaRepository<Person, Integer> {
     @Query("SELECT p FROM Person p WHERE p.first_name like %:firstName%")
     Iterable<Person> findByFirstName(@Param("firstName") String firstName);
 
