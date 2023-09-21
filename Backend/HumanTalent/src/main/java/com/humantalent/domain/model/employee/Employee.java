@@ -23,6 +23,7 @@ public class Employee extends Person {
     @Enumerated(EnumType.STRING)
     private EmployeeWorkArea workArea;
 
+    @Column(nullable = false)
     private boolean state;
 
     @Column(name = "reg_datetime")
