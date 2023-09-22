@@ -1,4 +1,4 @@
-package com.humantalent.domain.repositories;
+package com.humantalent.adapters.repositories;
 
 import com.humantalent.domain.model.person.Person;
 import org.springframework.data.jpa.repository.Query;
