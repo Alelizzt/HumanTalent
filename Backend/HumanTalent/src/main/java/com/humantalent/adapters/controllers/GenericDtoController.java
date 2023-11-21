@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import java.util.List;
 
 @AllArgsConstructor
+@SuppressWarnings("unchecked")
 public class GenericDtoController <E, S extends GenericService<E>>{
 
     protected final S service;

@@ -18,7 +18,7 @@ public class PersonServiceImpl extends GenericImpl<Person, PersonRepository> imp
     @Override
     @Transactional(readOnly = true)
     public Iterable<Person> findByFirstName(String firstName) {
-        return personRepository.findByFirstName(firstName);
+        return repository.findByFirstName(firstName);
     }
 
     @Override
