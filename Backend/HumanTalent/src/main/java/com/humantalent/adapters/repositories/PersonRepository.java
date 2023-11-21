@@ -10,22 +10,22 @@ import java.util.Optional;
 
 @NoRepositoryBean
 public interface PersonRepository extends JpaRepository<Person, Integer> {
-    @Query("SELECT p FROM Person p WHERE p.first_name like %:firstName%")
+    @Query("SELECT p FROM Person p WHERE p.name.firstName like %:firstName%")
     Iterable<Person> findByFirstName(@Param("firstName") String firstName);
 
-    @Query("SELECT p FROM Person p WHERE p.other_names like %:otherNames%")
+    @Query("SELECT p FROM Person p WHERE p.name.otherNames like %:otherNames%")
     Iterable<Person> findByOtherNames(@Param("otherNames") String otherNames);
 
-    @Query("SELECT p FROM Person p WHERE p.first_last_name like %:firstLastName%")
+    @Query("SELECT p FROM Person p WHERE p.name.firstLastName like %:firstLastName%")
     Optional<Person> findByFirstLastName(@Param("firstLastName") String firstLastName);
 
-    @Query("SELECT p FROM Person p WHERE p.second_last_name like %:secondLastName%")
+    @Query("SELECT p FROM Person p WHERE p.name.secondLastName like %:secondLastName%")
     Optional<Person> findBySecondLastName(@Param("secondLastName") String secondLastName);
 
-    @Query("SELECT p FROM Person p WHERE :idType IN(p.id_type)")
+    @Query("SELECT p FROM Person p WHERE p.idType = :idType")
     Iterable<Person> findByIdType(@Param("idType") String idType);
 
-    @Query("SELECT p FROM Person p WHERE p.identification_num = :idNumber")
+    @Query("SELECT p FROM Person p WHERE p.idNumber = :idNumber")
     Optional<Person> findByIdNumber(@Param("idNumber") String idNumber);
 
     @Query("SELECT p FROM Person p WHERE :country IN(p.country)")
