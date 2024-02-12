@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@Repository
+@Repository("employeeRepository")
 public interface EmployeeRepository extends PersonRepository {
 
     @Query("SELECT e FROM Employee e WHERE e.email = ?1")

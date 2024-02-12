@@ -1,16 +1,14 @@
 package com.humantalent.domain.model.person;
 
-import com.humantalent.domain.model.Name;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.humantalent.domain.model.employee.Employee;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -19,33 +17,36 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "persons")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Person implements Serializable {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Employee.class, name = "employee")
+        // Agregar más subtipos si es necesario
+})
+public abstract class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "firstName", column = @Column(name = "first_name", length = 20)),
-            @AttributeOverride(name = "otherNames", column = @Column(name = "other_names", length = 20)),
-            @AttributeOverride(name = "firstLastName", column = @Column(name = "first_last_name", length = 20)),
-            @AttributeOverride(name = "secondLastName", column = @Column(name = "second_last_name", length = 50))
-    })
-    @Pattern (regexp = "^[A-NO-Z]*$",
-            message = "The name must contain only capital letters without accents or ñ")
-    private Name name;
+    @EqualsAndHashCode.Include
+    private String firstName;
+    private String otherNames;
+    @EqualsAndHashCode.Include
+    private String firstLastName;
+    @EqualsAndHashCode.Include
+    private String secondLastName;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private PersonCountry country;
 
-    @Column(nullable = false, name = "id_type")
+    @Column(nullable = false, name = "id_type", columnDefinition = "VARCHAR DEFAULT 'CITIZENSHIP_CARD'")
     @Enumerated(EnumType.STRING)
     @EqualsAndHashCode.Include
     private PersonIdType idType;
 
     @Column(nullable = false, unique = true, name = "identification_num", length = 50)
     @EqualsAndHashCode.Include
-    private String idNumber;
+    private String identificationNum;//TODO: Debe cambiarse a String, incluyendo sus metodos de busqueda
 
 }

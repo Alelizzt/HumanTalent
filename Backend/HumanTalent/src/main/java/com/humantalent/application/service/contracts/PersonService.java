@@ -1,11 +1,11 @@
-package com.humantalent.application.service;
+package com.humantalent.application.service.contracts;
 
 import com.humantalent.domain.model.person.Person;
 import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
-public interface PersonService extends GenericService<Person>{
+public interface PersonService extends GenericService<Person> {
     Iterable<Person> findByFirstName(@Param("firstName") String firstName);
     Iterable<Person> findByOtherNames(@Param("otherNames") String otherNames);
     Optional<Person> findByFirstLastName(@Param("firstLastName") String firstLastName);

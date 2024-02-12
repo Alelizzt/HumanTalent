@@ -1,6 +1,6 @@
 package com.humantalent.application.service.implementations;
 
-import com.humantalent.application.service.GenericService;
+import com.humantalent.application.service.contracts.GenericService;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 

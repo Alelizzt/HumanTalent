@@ -1,4 +1,4 @@
-package com.humantalent.application.service;
+package com.humantalent.application.service.contracts;
 
 import java.util.Optional;
 

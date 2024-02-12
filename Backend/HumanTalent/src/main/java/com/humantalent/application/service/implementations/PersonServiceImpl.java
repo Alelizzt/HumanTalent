@@ -1,14 +1,12 @@
 package com.humantalent.application.service.implementations;
 
 import com.humantalent.adapters.repositories.PersonRepository;
-import com.humantalent.application.service.PersonService;
+import com.humantalent.application.service.contracts.PersonService;
 import com.humantalent.domain.model.person.Person;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-@Service
 
 public class PersonServiceImpl extends GenericImpl<Person, PersonRepository> implements PersonService {
 
