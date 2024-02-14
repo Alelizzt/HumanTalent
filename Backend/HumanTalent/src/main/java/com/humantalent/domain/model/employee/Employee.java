@@ -25,7 +25,7 @@ public class Employee extends Person {
     private EmployeeWorkArea workArea;
 
     @Column(nullable = false)
-    private boolean state;
+    private boolean state = Boolean.TRUE;
 
     @Column(name = "reg_datetime")
     @Convert(converter = LocalDateTimeConverter.class) // DD/MM/YYYY HH:mm:ss
