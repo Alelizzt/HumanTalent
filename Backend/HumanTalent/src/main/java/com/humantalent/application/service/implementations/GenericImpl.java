@@ -1,6 +1,8 @@
 package com.humantalent.application.service.implementations;
 
 import com.humantalent.application.service.contracts.GenericService;
+import com.humantalent.domain.model.person.Person;
+import jakarta.persistence.EntityManager;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 

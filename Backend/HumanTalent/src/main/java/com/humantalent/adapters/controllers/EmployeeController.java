@@ -78,7 +78,7 @@ public class EmployeeController extends PersonController {
     }
 
     @PostMapping
-    public ResponseEntity<?> addEmployee(@RequestBody Person persona, BindingResult result) {
+    public ResponseEntity<?> addEmployee(@RequestBody Employee employee, BindingResult result) {
         Map<String, Object> message = new HashMap<>();
         if(result.hasErrors()){
             message.put("success", Boolean.FALSE);
@@ -86,9 +86,10 @@ public class EmployeeController extends PersonController {
             return ResponseEntity.badRequest().body(message);
         }
 
-        Person save = super.addEntity((Employee) persona);
+        Person savedEmployee = ((EmployeeService) service).processEmployeeAndGenerateEmail(employee);
+
         message.put("success", Boolean.TRUE);
-        message.put("data", save);
+        message.put("data", savedEmployee);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(message);
     }

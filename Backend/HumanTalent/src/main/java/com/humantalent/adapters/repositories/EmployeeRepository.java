@@ -12,6 +12,9 @@ public interface EmployeeRepository extends PersonRepository {
     @Query("SELECT e FROM Employee e WHERE e.email = ?1")
     Optional<Person> findByEmail(String email);
 
+    @Query("SELECT COUNT(e) > 0 FROM Employee e WHERE e.email = ?1")
+    boolean existsByEmail(String email);
+
     @Query("SELECT e FROM Employee e WHERE e.state = ?1")
     Iterable<Person> findByState(Boolean state);
 }

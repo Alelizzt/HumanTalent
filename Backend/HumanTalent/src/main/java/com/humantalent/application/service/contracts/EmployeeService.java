@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface EmployeeService extends PersonService {
     Optional<Person> findByEmail(String email);
     Iterable<Person> findByState(Boolean state);
+
+    Person processEmployeeAndGenerateEmail(Person employee);
 }

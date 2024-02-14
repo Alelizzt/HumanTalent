@@ -40,13 +40,13 @@ public abstract class Person {
     @Enumerated(EnumType.STRING)
     private PersonCountry country;
 
-    @Column(nullable = false, name = "id_type", columnDefinition = "VARCHAR DEFAULT 'CITIZENSHIP_CARD'")
+    @Column(nullable = false, name = "id_type", columnDefinition = "VARCHAR")
     @Enumerated(EnumType.STRING)
     @EqualsAndHashCode.Include
-    private PersonIdType idType;
+    private PersonIdType idType = PersonIdType.CITIZENSHIP_CARD;
 
     @Column(nullable = false, unique = true, name = "identification_num", length = 50)
     @EqualsAndHashCode.Include
-    private String identificationNum;//TODO: Debe cambiarse a String, incluyendo sus metodos de busqueda
+    private String identificationNum;
 
 }

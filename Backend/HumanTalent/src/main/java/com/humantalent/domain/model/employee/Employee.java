@@ -5,6 +5,7 @@ import com.humantalent.domain.model.person.Person;
 import com.humantalent.domain.utils.LocalDateTimeConverter;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 import java.time.LocalDateTime;
@@ -37,11 +38,13 @@ public class Employee extends Person {
     @Column(name = "email", length = 300)
     private String email;
 
-    @Transient // No persistence on DB
-    private EmailGenerator emailGenerator;
+    @Transient
+    EmailGenerator emailGenerator;
 
-    public void generateAndSetEmail() {
-        this.email = emailGenerator.generateEmail(this);
+    public void generateAndSetEmail(EmailGenerator emailGenerator) {
+        if (this.email == null || this.email.isEmpty()) {
+            this.email = emailGenerator.generateEmail(this);
+        }
     }
 
     @PrePersist
