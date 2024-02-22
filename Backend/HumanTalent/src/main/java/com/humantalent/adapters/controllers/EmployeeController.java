@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200/", maxAge = 4800, allowCredentials = "false")//http://localhost:4200
 @RequestMapping("/employees")
 public class EmployeeController extends PersonController {
 
@@ -25,7 +26,7 @@ public class EmployeeController extends PersonController {
         super(service, "employee");
     }
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<?> getEmployees() {
         Map<String, Object> message = new HashMap<>();
         Stream<Person> persons = (super.getAll().stream());
