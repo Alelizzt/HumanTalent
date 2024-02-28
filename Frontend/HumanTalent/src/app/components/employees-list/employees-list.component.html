@@ -1,11 +1,16 @@
+<div class="containter">
 <h3 class="h3 mt-5">List of employees</h3>
 
 @if (allEmployees == null) {
-<p align="center">Can't load Employees from REST API ...</p>
+<div class="text-center p-5">
+  <div class="spinner-border text-muted"></div>
+  Can't load Employees from REST API ...
+</div>
+
 
 } @else {
 
-<div class="containter">
+
   <div class="card m-5 p-3">
     <div class="card-body table-responsive">
       <table datatable class="table table-hover table-sm">
@@ -47,6 +52,6 @@
         </tbody>
       </table>
     </div>
-  </div>
+  </div>}
 </div>
-}
+
