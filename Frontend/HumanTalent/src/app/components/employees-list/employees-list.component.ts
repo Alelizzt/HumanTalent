@@ -36,7 +36,6 @@ export class EmployeesListComponent {
         },
           error: (e) => {
             console.error(e);
-            alert('An unexpected error ocurred. Please try again later.');
           }
     });
   }
