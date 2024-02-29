@@ -19,14 +19,14 @@ import java.util.stream.Stream;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200/", maxAge = 4800, allowCredentials = "false")//http://localhost:4200
-@RequestMapping("/employees")
+@RequestMapping("/talent")
 public class EmployeeController extends PersonController {
 
     public EmployeeController(@Qualifier("employeeServiceImpl")PersonService service) {
         super(service, "employee");
     }
 
-    @GetMapping
+    @GetMapping("/employees")
     public ResponseEntity<?> getEmployees() {
         Map<String, Object> message = new HashMap<>();
         Stream<Person> persons = (super.getAll().stream());
@@ -78,7 +78,7 @@ public class EmployeeController extends PersonController {
         return ResponseEntity.ok(message);
     }
 
-    @PostMapping
+    @PostMapping("/employee")
     public ResponseEntity<?> addEmployee(@RequestBody Employee employee, BindingResult result) {
         Map<String, Object> message = new HashMap<>();
         if(result.hasErrors()){

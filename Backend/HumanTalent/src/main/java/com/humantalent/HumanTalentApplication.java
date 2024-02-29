@@ -22,7 +22,8 @@ public class HumanTalentApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/employees").allowedOrigins("http://localhost:4200").allowedMethods("GET");
+				registry.addMapping("/**")
+						.allowedOrigins("http://localhost:4200");
 			}
 		};
 	}
