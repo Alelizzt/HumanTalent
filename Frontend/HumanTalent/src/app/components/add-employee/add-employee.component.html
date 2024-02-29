@@ -88,17 +88,17 @@
     <div class="mb-3">
       <label for="country">Country:</label>
       <select class="form-select" #country="ngModel" name="country" id="country" [(ngModel)]="employee.country" required>
-        <option>Colombia</option>
-        <option>United States</option>
+        <option value="CO">Colombia</option>
+        <option value="EU">United States</option>
       </select>
     </div>
     <div class="mb-3">
       <label for="idType">Identification type:</label>
       <select class="form-select" #idType="ngModel" name="idType" id="idType" [(ngModel)]="employee.idType" required>
-        <option>Citiezenship card</option>
-        <option>Foreigner id</option>
-        <option>Passport</option>
-        <option>Special permission</option>
+        <option value="CITIZENSHIP_CARD">Citiezenship card</option>
+        <option value="FOREIGNER_ID">Foreigner id</option>
+        <option value="PASSPORT">Passport</option>
+        <option value="SPECIAL_PERMISSION">Special permission</option>
       </select>
     </div>
     <div class="mb-3">
@@ -133,7 +133,6 @@
           class="form-control form-date"
           name="entryDate"
           id="entryDate"
-          value="2018-07-22"
           [(ngModel)]="employee.entryDate"
           [min]="minDate"
           [max]="maxDate"
@@ -144,13 +143,13 @@
     <div class="mb-3">
       <label for="workArea">Work area:</label>
       <select class="form-select" #workArea="ngModel" name="workArea" id="workArea" [(ngModel)]="employee.workArea" required>
-        <option>Administration</option>
-        <option>Finance</option>
-        <option>Procurement</option>
-        <option>Infraestructure</option>
-        <option>Operations</option>
-        <option>Human resources</option>
-        <option>Miscellaneous services</option>
+        <option value="ADMINISTRATION">Administration</option>
+        <option value="FINANCE">Finance</option>
+        <option value="PROCUREMENT">Procurement</option>
+        <option value="INFRASTRUCTURE">Infraestructure</option>
+        <option value="OPERATIONS">Operations</option>
+        <option value="HUMAN_RESOURCES">Human resources</option>
+        <option value="MISCELLANEOUS_SERVICES">Miscellaneous services</option>
       </select>
     </div>
     <button type="submit" class="btn btn-success" [disabled]="!formEmployee.form.valid">Submit</button>

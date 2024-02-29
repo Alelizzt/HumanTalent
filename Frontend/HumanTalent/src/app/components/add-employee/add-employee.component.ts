@@ -12,6 +12,7 @@ export class AddEmployeeComponent {
   public employee: Employee;
   minDate: string;
   maxDate: string = new Date().toISOString().split('T')[0];
+  
 
   constructor(
     private _employeeService: EmployeesService,
@@ -34,8 +35,20 @@ export class AddEmployeeComponent {
     this.minDate = new Date(year, month, actualDate.getDate()).toISOString().split('T')[0];
   }
 
+
   onSubmit() {
-    console.log(this.employee);
+    //console.log(this.employee);
+    this._employeeService.addEmployee(this.employee).subscribe({
+      next: (response: any) => {
+        console.log(response);
+        if(response.success === true){
+          this._router.navigate(["/employees"])
+        }
+      },
+        error: (e) => {
+          console.error(e);
+        }
+    });
   }
 
 

@@ -1,5 +1,6 @@
 export class Employee {
     id?: any;
+    type?: string = "employee";
     firstName?: string;
     otherNames?: string;
     firstLastName?: string;

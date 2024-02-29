@@ -25,7 +25,7 @@ export class EmployeesListComponent {
 
   ngOnInit(){
     this.getEmployees();
-    console.log(this.allEmployees)
+    //console.log(this.allEmployees)
   }
 
 
