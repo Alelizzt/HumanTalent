@@ -8,6 +8,7 @@ import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -29,11 +30,11 @@ public class Employee extends Person {
 
     @Column(name = "reg_datetime")
     @Convert(converter = LocalDateTimeConverter.class) // DD/MM/YYYY HH:mm:ss
-    private LocalDateTime registrationDateAndTime;
+    private LocalDateTime regDateTime;
 
     @Column(name = "entry_date")
-    @Convert(converter = LocalDateTimeConverter.class) // DD/MM/YYYY HH:mm:ss
-    private LocalDateTime entryDate;
+    //@Convert(converter = LocalDateTimeConverter.class) // DD/MM/YYYY HH:mm:ss
+    private LocalDate entryDate;
 
     @Column(name = "email", length = 300)
     private String email;
@@ -49,12 +50,13 @@ public class Employee extends Person {
 
     @PrePersist
     private void beforePersistence(){
-        this.entryDate = LocalDateTime.now();
+        //this.entryDate = LocalDate.now();
+        this.regDateTime = LocalDateTime.now();
     }
 
     @PreUpdate
     private void afterUpdate(){
-        this.registrationDateAndTime = LocalDateTime.now();
+        this.regDateTime = LocalDateTime.now();
     }
 
 
