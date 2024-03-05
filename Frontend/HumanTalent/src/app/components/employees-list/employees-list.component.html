@@ -16,6 +16,7 @@
       <table datatable class="table table-hover table-sm">
         <thead class="table-active">
           <tr>
+            <th class="text-center">Actions</th>
             <th class="text-center">id</th>
             <th class="text-center">Firstname</th>
             <th class="text-center">Other names</th>
@@ -34,6 +35,11 @@
         <tbody>
           @for (employee of allEmployees; track $index) {
           <tr>
+            <td>
+              <a class="btn btn-sm btn-primary"><span class="fa-regular fa-eye"></span></a>
+              <a class="btn btn-sm btn-warning"><span class="fa-regular fa-pen-to-square"></span></a>
+              <a class="btn btn-sm btn-danger"><span class="fa-regular fa-trash-can"></span></a>
+            </td>
             <td class="text-center">{{ employee.id }}</td>
             <td class="text-center">{{ employee.firstName }}</td>
             <td class="text-center">{{ employee.otherNames }}</td>
