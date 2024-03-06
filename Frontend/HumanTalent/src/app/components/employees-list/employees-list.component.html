@@ -1,7 +1,7 @@
 <div class="containter">
 <h3 class="h3 mt-5">List of employees</h3>
 
-@if (allEmployees == null) {
+@if (employees == null) {
 <div class="text-center p-5">
   <div class="spinner-border text-muted"></div>
   Can't load Employees from REST API ...
@@ -33,7 +33,7 @@
           </tr>
         </thead>
         <tbody>
-          @for (employee of allEmployees; track $index) {
+          @for (employee of employees; track $index) {
           <tr>
             <td>
               <a class="btn btn-sm btn-primary"><span class="fa-regular fa-eye"></span></a>
@@ -58,6 +58,13 @@
         </tbody>
       </table>
     </div>
-  </div>}
+  </div>
+
+  <ul class="pagination justify-content-center">
+    <button class="btn btn-secondary" (click)="goToPreviousPage()"><span class="fa-solid fa-caret-left"></span></button>
+    <span class="m-2">Page {{currentPage + 1}} of {{totalPages}}</span>
+    <button class="btn btn-secondary" (click)="goToNextPage()"><span class="fa-solid fa-caret-right"></span></button>
+  </ul>
+}
 </div>
 

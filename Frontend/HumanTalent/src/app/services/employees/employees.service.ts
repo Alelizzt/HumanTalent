@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { GLOBAL } from './global';
 import { Observable, catchError, map } from 'rxjs';
@@ -28,5 +28,12 @@ export class EmployeesService {
     .set('Content-Type','application/json');
 
     return this._http.post<Employee>(this.url+'employee',json, {'headers': headers});
+  }
+
+  getPaginatedData(page: number): Observable<Employee> {
+    const params = new HttpParams()
+    .set('page', page.toString())
+
+    return this._http.get<Employee>(this.url+'employees',{params});
   }
 }

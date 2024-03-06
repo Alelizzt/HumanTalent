@@ -1,38 +1,40 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ActivatedRoute, Route } from '@angular/router';
 import { EmployeesService } from '../../services/employees/employees.service';
 import { Employee } from '../../models/employee.model';
 
 @Component({
   selector: 'app-employee',
-  standalone: true,
-  imports: [],
   templateUrl: './employees-list.component.html',
   styleUrl: './employees-list.component.css'
 })
 export class EmployeesListComponent {
 
-  allEmployees?: Employee[];
+  employees?: Employee[];
+  currentEmployee: Employee = {};
   confirm: any;
+
+  currentPage: number = 0;
+  totalItems: number = 0;
+  totalPages: number = 0;
 
   constructor(
     private _route: ActivatedRoute,
     private _employeeService: EmployeesService,
     
-    ){
-      this.confirm = null;
-  }
+    ){  }
 
   ngOnInit(){
-    this.getEmployees();
-    //console.log(this.allEmployees)
+    this.retrieveEmployees();
   }
 
-
-  getEmployees() {
-    this._employeeService.getAll().subscribe({
+  retrieveEmployees() {
+    this._employeeService.getPaginatedData(this.currentPage).subscribe({
           next: (response: any) => {
-          this.allEmployees = response.data;
+          this.employees = response.data.content;
+          this.currentPage = response.data.pageable.pageNumber;
+          this.totalItems = response.data.totalElements;
+          this.totalPages = response.data.totalPages;
         },
           error: (e) => {
             console.error(e);
@@ -40,8 +42,32 @@ export class EmployeesListComponent {
     });
   }
 
-  handleError(error: any) {
-    
+  onPageChange(page:number) {
+    this.currentPage = page;
+    this.retrieveEmployees();
   }
+
+  goToPreviousPage() {
+    if(this.currentPage >= 1) {
+      this.currentPage--;
+      this.retrieveEmployees();
+    }
+  }
+
+  goToNextPage() {
+    if(this.currentPage <= this.totalPages) {
+      this.currentPage++;
+      this.retrieveEmployees();
+    }
+  }
+
+  goToPage(page: string) {
+    const pageNumber = parseInt(page, 10);
+    if(pageNumber && pageNumber >= 1 && pageNumber <= this.totalPages && pageNumber !== this.currentPage) {
+      this.currentPage = pageNumber;
+      this.retrieveEmployees();
+    }
+  }
+
 
 }
