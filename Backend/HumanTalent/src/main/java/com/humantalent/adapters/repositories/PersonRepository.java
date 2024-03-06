@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 
 @NoRepositoryBean
-public interface PersonRepository extends CrudRepository<Person, Integer> {
+public interface PersonRepository extends JpaRepository<Person, Integer> {
     @Query("SELECT p FROM Person p WHERE p.firstName like %:firstName%")
     Iterable<Person> findByFirstName(@Param("firstName") String firstName);
 
