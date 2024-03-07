@@ -72,7 +72,55 @@ public class EmployeeServiceImpl extends PersonServiceImpl implements EmployeeSe
             pageable = PageRequest.of(pageNumber, pageSize);
         }
 
-        return ((EmployeeRepository)repository).orderByEmail(pageable);
+        return ((EmployeeRepository)repository).orderByEmail(pageable).map(employee -> (Employee) employee);
+    }
+
+    @Override
+    public Page<Employee> getEmployeePaginationByWorkArea(Integer pageNumber, Integer pageSize, String sort) {
+        Pageable pageable;
+        if (sort != null) {
+            pageable = PageRequest.of(pageNumber, pageSize, Sort.Direction.ASC, sort);
+        } else {
+            pageable = PageRequest.of(pageNumber, pageSize);
+        }
+
+        return ((EmployeeRepository)repository).orderByWorkArea(pageable);
+    }
+
+    @Override
+    public Page<Employee> getEmployeePaginationByState(Integer pageNumber, Integer pageSize, String sort) {
+        Pageable pageable;
+        if (sort != null) {
+            pageable = PageRequest.of(pageNumber, pageSize, Sort.Direction.ASC, sort);
+        } else {
+            pageable = PageRequest.of(pageNumber, pageSize);
+        }
+
+        return ((EmployeeRepository)repository).orderByState(pageable);
+    }
+
+    @Override
+    public Page<Employee> getEmployeePaginationByRegDateTime(Integer pageNumber, Integer pageSize, String sort) {
+        Pageable pageable;
+        if (sort != null) {
+            pageable = PageRequest.of(pageNumber, pageSize, Sort.Direction.ASC, sort);
+        } else {
+            pageable = PageRequest.of(pageNumber, pageSize);
+        }
+
+        return ((EmployeeRepository)repository).orderByRegDateTime(pageable);
+    }
+
+    @Override
+    public Page<Employee> getEmployeePaginationByEntryDate(Integer pageNumber, Integer pageSize, String sort) {
+        Pageable pageable;
+        if (sort != null) {
+            pageable = PageRequest.of(pageNumber, pageSize, Sort.Direction.ASC, sort);
+        } else {
+            pageable = PageRequest.of(pageNumber, pageSize);
+        }
+
+        return ((EmployeeRepository)repository).orderByEntryDate(pageable);
     }
 
 }

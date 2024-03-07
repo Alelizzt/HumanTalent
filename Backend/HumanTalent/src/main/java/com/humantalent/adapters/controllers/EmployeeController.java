@@ -93,7 +93,6 @@ public class EmployeeController extends PersonController {
 
     @GetMapping("/employees/email")
     public ResponseEntity<Map<String, Object>> orderEmployeeByEmail(@RequestParam (defaultValue = "0") int page ) {
-
         Map<String, Object> message = new HashMap<>();
 
         try {
@@ -101,12 +100,12 @@ public class EmployeeController extends PersonController {
 
             if (employeePaginationByEmail.isEmpty()) {
                 message.put("success", Boolean.FALSE);
-                message.put("message", String.format("No employees with %s email", name_entity));
+                message.put("message", String.format("No employees %s with email", name_entity));
                 return ResponseEntity.badRequest().body(message);
             }
 
             message.put("success", Boolean.TRUE);
-            message.put("data", employeePaginationByEmail.getContent());
+            message.put("data", employeePaginationByEmail);
             return ResponseEntity.ok(message);
         } catch (Exception e) {
             message.put("success", Boolean.FALSE);
@@ -115,60 +114,97 @@ public class EmployeeController extends PersonController {
         }
     }
 
-    @GetMapping("/identification")
-    public ResponseEntity<?> getEmployeeByIdentification(@RequestParam String identificationNum) {
+    @GetMapping("/employees/workArea")
+    public ResponseEntity<Map<String, Object>> orderEmployeeByWorkArea(@RequestParam (defaultValue = "0") int page ) {
         Map<String, Object> message = new HashMap<>();
+        try {
+            Page<Employee> employeePaginationByWorkArea = ((EmployeeService) service).getEmployeePaginationByWorkArea(page, pageSize, null);
 
-        Optional<Person> oEmployee = ((EmployeeService) service).findByIdNumber(identificationNum);
+            if (employeePaginationByWorkArea.isEmpty()) {
+                message.put("success", Boolean.FALSE);
+                message.put("message", String.format("No employees %s with workArea", name_entity));
+                return ResponseEntity.badRequest().body(message);
+            }
 
-        if (oEmployee.isEmpty()) {
+            message.put("success", Boolean.TRUE);
+            message.put("data", employeePaginationByWorkArea);
+            return ResponseEntity.ok(message);
+        } catch (Exception e) {
             message.put("success", Boolean.FALSE);
-            message.put("message", String.format("No employee with identification number %s", identificationNum));
-            return ResponseEntity.badRequest().body(message);
+            message.put("message", "Error fetching employees by workArea");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
         }
+    }
 
-        message.put("success", Boolean.TRUE);
-        message.put("data", oEmployee.get());
-        return ResponseEntity.ok(message);
+    @GetMapping("/employees/state")
+    public ResponseEntity<Map<String, Object>> orderEmployeeByState(@RequestParam (defaultValue = "0") int page ) {
+        Map<String, Object> message = new HashMap<>();
+        try {
+            Page<Employee> employeePaginationByState = ((EmployeeService) service).getEmployeePaginationByState(page, pageSize, null);
+
+            if (employeePaginationByState.isEmpty()) {
+                message.put("success", Boolean.FALSE);
+                message.put("message", String.format("No employees %s with state", name_entity));
+                return ResponseEntity.badRequest().body(message);
+            }
+
+            message.put("success", Boolean.TRUE);
+            message.put("data", employeePaginationByState);
+            return ResponseEntity.ok(message);
+        } catch (Exception e) {
+            message.put("success", Boolean.FALSE);
+            message.put("message", "Error fetching employees by state: "+e.getCause());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
+        }
+    }
+
+    @GetMapping("/employees/regDateTime")
+    public ResponseEntity<Map<String, Object>> orderEmployeeByRegDateTime(@RequestParam (defaultValue = "0") int page ) {
+        Map<String, Object> message = new HashMap<>();
+        try {
+            Page<Employee> employeePaginationByRegDateTime = ((EmployeeService) service).getEmployeePaginationByRegDateTime(page, pageSize, null);
+
+            if (employeePaginationByRegDateTime.isEmpty()) {
+                message.put("success", Boolean.FALSE);
+                message.put("message", String.format("No employees %s with RegDateTime", name_entity));
+                return ResponseEntity.badRequest().body(message);
+            }
+
+            message.put("success", Boolean.TRUE);
+            message.put("data", employeePaginationByRegDateTime);
+            return ResponseEntity.ok(message);
+        } catch (Exception e) {
+            message.put("success", Boolean.FALSE);
+            message.put("message", "Error fetching employees by RegDateTime: "+e.getCause());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
+        }
+    }
+
+    @GetMapping("/employees/entryDate")
+    public ResponseEntity<Map<String, Object>> orderEmployeeByEntryDate(@RequestParam (defaultValue = "0") int page ) {
+        Map<String, Object> message = new HashMap<>();
+        try {
+            Page<Employee> employeePaginationByEntryDate = ((EmployeeService) service).getEmployeePaginationByEntryDate(page, pageSize, null);
+
+            if (employeePaginationByEntryDate.isEmpty()) {
+                message.put("success", Boolean.FALSE);
+                message.put("message", String.format("No employees %s with Entry Date", name_entity));
+                return ResponseEntity.badRequest().body(message);
+            }
+
+            message.put("success", Boolean.TRUE);
+            message.put("data", employeePaginationByEntryDate);
+            return ResponseEntity.ok(message);
+        } catch (Exception e) {
+            message.put("success", Boolean.FALSE);
+            message.put("message", "Error fetching employees by EntryDate: "+e.getCause());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
+        }
     }
 
 
 
-    /*@PostMapping("/employee")
-    public ResponseEntity<?> addEmployee(@RequestBody Employee employee, BindingResult result) {
-        Map<String, Object> message = new HashMap<>();
-        if(result.hasErrors()){
-            message.put("success", Boolean.FALSE);
-            message.put("validations", super.getValidations(result));
-            return ResponseEntity.badRequest().body(message);
-        }
-
-        Person savedEmployee = ((EmployeeService) service).processEmployeeAndGenerateEmail(employee);
-
-        message.put("success", Boolean.TRUE);
-        message.put("data", savedEmployee);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(message);
-    }
-    
-    @GetMapping("/state")
-    public ResponseEntity<?> getEmployeeByState(@RequestParam Boolean state) {
-        Map<String, Object> message = new HashMap<>();
-        Iterable<Person> byState = ((EmployeeService) service).findByState(state);
-        List<Person> oEmployees = (List<Person>) byState;
-
-        if(oEmployees.isEmpty()) {
-            message.put("success", Boolean.FALSE);
-            message.put("message", String.format("No employees with %s state", state));
-            return ResponseEntity.badRequest().body(message);
-        }
-
-
-        message.put("success", Boolean.TRUE);
-        message.put("data", oEmployees);
-        return ResponseEntity.ok(message);
-    }
-
+    /*
     @PutMapping("/{id}")
     public ResponseEntity<?> updateEmployee(@PathVariable Integer id, @RequestBody Employee employee, BindingResult result) {
         Map<String, Object> message = new HashMap<>();

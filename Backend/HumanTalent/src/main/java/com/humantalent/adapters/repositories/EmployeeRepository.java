@@ -17,6 +17,18 @@ public interface EmployeeRepository extends PersonRepository {
     @Query("SELECT e FROM Employee e ORDER BY e.email ASC")
     Page<Employee> orderByEmail(Pageable pageable);
 
+    @Query("SELECT e FROM Employee e ORDER BY e.workArea ASC")
+    Page<Employee> orderByWorkArea(Pageable pageable);
+
+    @Query("SELECT e FROM Employee e ORDER BY e.state ASC")
+    Page<Employee> orderByState(Pageable pageable);
+
+    @Query("SELECT e FROM Employee e ORDER BY e.regDateTime ASC")
+    Page<Employee> orderByRegDateTime(Pageable pageable);
+
+    @Query("SELECT e FROM Employee e ORDER BY e.entryDate ASC")
+    Page<Employee> orderByEntryDate(Pageable pageable);
+
     @Query("SELECT e FROM Employee e WHERE e.email LIKE %:email%")
     Page<Employee> findByEmailContaining(@Param("email") String email, Pageable pageable);
 
