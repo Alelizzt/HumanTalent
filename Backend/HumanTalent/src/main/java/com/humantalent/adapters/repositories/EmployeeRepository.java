@@ -14,8 +14,8 @@ import java.util.Optional;
 @Repository("employeeRepository")
 public interface EmployeeRepository extends PersonRepository {
 
-    //@Query("SELECT e FROM Employee e WHERE e.email = :email")
-    Page<Employee> findByEmail(String email, Pageable pageable);
+    @Query("SELECT e FROM Employee e ORDER BY e.email ASC")
+    Page<Employee> orderByEmail(Pageable pageable);
 
     @Query("SELECT e FROM Employee e WHERE e.email LIKE %:email%")
     Page<Employee> findByEmailContaining(@Param("email") String email, Pageable pageable);

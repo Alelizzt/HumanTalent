@@ -33,6 +33,8 @@ import java.util.stream.Stream;
 @RequestMapping("/talent")
 public class EmployeeController extends PersonController {
 
+    final Integer pageSize = 10;
+
     public EmployeeController(@Qualifier("employeeServiceImpl")EmployeeService service) {
         super(service, "employee");
     }
@@ -47,16 +49,10 @@ public class EmployeeController extends PersonController {
         return Sort.Direction.ASC;
     }
 
-    @GetMapping("/employees/{pageNumber}/{pageSize}")
-    public List<Employee> getEmployees(@PathVariable Integer pageNumber, @PathVariable Integer pageSize) {
-        Page<Employee> data = ((EmployeeService)service).getEmployeePagination(pageNumber, pageSize, null);
-        return data.getContent();
-    }
-
     @GetMapping("/employees")
     public ResponseEntity<?> getEmployees( @RequestParam(defaultValue = "0") int page) {
         Map<String, Object> response = new HashMap<>();
-        final Integer pageSize = 10;
+
         Page<Employee> employees = ((EmployeeService)service).getEmployeePagination(page, pageSize, null);
 
         if (employees.isEmpty()){
@@ -65,31 +61,19 @@ public class EmployeeController extends PersonController {
             return ResponseEntity.badRequest().body(response);
         }
 
-
         response.put("success", Boolean.TRUE);
         response.put("data", employees);
         return ResponseEntity.ok(response);
     }
-   /* @GetMapping("/employees/{pageNumber}/{pageSize}/{sort}")
-    public ResponseEntity<?> getAllEmployees(@RequestParam(defaultValue = "id,desc") String[] sort) {
+    @GetMapping("/employees/{sort}")
+    public ResponseEntity<?> getAllEmployees(
+            @PathVariable String sort,
+            @RequestParam(defaultValue = "0") int page) {
         Map<String, Object> message = new HashMap<>();
         try {
             List<Order> orders = new ArrayList<Order>();
 
-            if (sort[0].contains(",")) {
-                // will sort more than 2 fields
-                // sortOrder="field, direction"
-                for (String sortOrder : sort) {
-                    String[] _sort = sortOrder.split(",");
-                    orders.add(new Order(getSortDirection(_sort[1]), _sort[0]));
-                }
-            } else {
-                // sort=[field, direction]
-                orders.add(new Order(getSortDirection(sort[1]), sort[0]));
-            }
-
-
-            Page<Person> employees = ((EmployeeService)service).getEmployeePagination(pageNumber, pageSize, sort);
+            Page<Employee> employees = ((EmployeeService)service).getEmployeePagination(page, pageSize, sort);
 
             if (employees.isEmpty()) {
                 message.put("success", Boolean.FALSE);
@@ -105,24 +89,30 @@ public class EmployeeController extends PersonController {
             message.put("data", e.getMessage());
             return ResponseEntity.internalServerError().body(message);
         }
-    }*/
+    }
 
+    @GetMapping("/employees/email")
+    public ResponseEntity<Map<String, Object>> orderEmployeeByEmail(@RequestParam (defaultValue = "0") int page ) {
 
-    @GetMapping("/old")
-    public ResponseEntity<?> getEmployees() {
         Map<String, Object> message = new HashMap<>();
-        Stream<Person> persons = (super.getAll().stream());
-        List<Person> employees = persons.filter(person -> person instanceof Employee).toList();
 
-        if(employees.isEmpty()) {
+        try {
+            Page<Employee> employeePaginationByEmail = ((EmployeeService) service).getEmployeePaginationByEmail(page, pageSize, null);
+
+            if (employeePaginationByEmail.isEmpty()) {
+                message.put("success", Boolean.FALSE);
+                message.put("message", String.format("No employees with %s email", name_entity));
+                return ResponseEntity.badRequest().body(message);
+            }
+
+            message.put("success", Boolean.TRUE);
+            message.put("data", employeePaginationByEmail.getContent());
+            return ResponseEntity.ok(message);
+        } catch (Exception e) {
             message.put("success", Boolean.FALSE);
-            message.put("message", String.format("Can't find %ss", name_entity));
-            return ResponseEntity.badRequest().body(message);
+            message.put("message", "Error fetching employees by email");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
         }
-
-        message.put("success", Boolean.TRUE);
-        message.put("data", employees);
-        return ResponseEntity.ok(message);
     }
 
     @GetMapping("/identification")
@@ -142,33 +132,7 @@ public class EmployeeController extends PersonController {
         return ResponseEntity.ok(message);
     }
 
-    @GetMapping("/employees/{pageNumber}/{pageSize}/email")
-    public ResponseEntity<Map<String, Object>> getEmployeeByEmail(
-            @PathVariable Integer pageNumber,
-            @PathVariable Integer pageSize,
-            @RequestParam String email,
-            @RequestParam(defaultValue = "email:asc") String sort) {
 
-        Map<String, Object> message = new HashMap<>();
-
-        try {
-            Page<Employee> employeePaginationByEmail = ((EmployeeService) service).getEmployeePaginationByEmail(email, pageNumber, pageSize, sort);
-
-            if (employeePaginationByEmail.isEmpty()) {
-                message.put("success", Boolean.FALSE);
-                message.put("message", String.format("No employees with %s email", email));
-                return ResponseEntity.badRequest().body(message);
-            }
-
-            message.put("success", Boolean.TRUE);
-            message.put("data", employeePaginationByEmail.getContent());
-            return ResponseEntity.ok(message);
-        } catch (Exception e) {
-            message.put("success", Boolean.FALSE);
-            message.put("message", "Error fetching employees by email");
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
-        }
-    }
 
     /*@PostMapping("/employee")
     public ResponseEntity<?> addEmployee(@RequestBody Employee employee, BindingResult result) {

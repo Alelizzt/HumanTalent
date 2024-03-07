@@ -9,10 +9,9 @@ import org.springframework.data.domain.Sort;
 import java.util.Optional;
 
 public interface EmployeeService extends PersonService {
-    Page<Employee> getEmployeePaginationByEmail(String email, Integer pageNumber, Integer pageSize, String sort) ;
+    Page<Employee> getEmployeePaginationByEmail(Integer pageNumber, Integer pageSize, String sort) ;
     Iterable<Person> findByState(Boolean state);
     Person processEmployeeAndGenerateEmail(Person employee);
     Page<Employee> getEmployeePagination(Integer pageNumber, Integer pageSize, String sort);
-    Page<Employee> getAllEmployees(Integer pageNo, Integer pageSize, String sortBy, String sortDir);
 
 }

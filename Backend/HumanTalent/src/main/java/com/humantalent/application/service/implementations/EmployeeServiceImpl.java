@@ -22,27 +22,23 @@ import java.util.stream.Stream;
 @Service
 public class EmployeeServiceImpl extends PersonServiceImpl implements EmployeeService {
 
-    @Autowired
-    @Qualifier("employeeRepository")
-    private final EmployeeRepository employeeRepository;
     private final EmailGenerator emailGenerator;
-    public EmployeeServiceImpl(@Qualifier("employeeRepository") EmployeeRepository employeeRepository,
+    public EmployeeServiceImpl(@Qualifier("employeeRepository") EmployeeRepository repository,
                                EmailGenerator emailGenerator) {
-        super(employeeRepository);
-        this.employeeRepository = employeeRepository;
+        super(repository);
         this.emailGenerator = emailGenerator;
     }
 
 
     @Transactional(readOnly = true)
     public Boolean existsByEmail(String email) {
-        return employeeRepository.existsByEmail(email);
+        return ((EmployeeRepository)repository).existsByEmail(email);
     }
 
     @Override
     @Transactional(readOnly = true)
     public Iterable<Person> findByState(Boolean state) {
-        return employeeRepository.findByState(state);
+        return ((EmployeeRepository)repository).findByState(state);
     }
 
     @Override
@@ -64,11 +60,11 @@ public class EmployeeServiceImpl extends PersonServiceImpl implements EmployeeSe
         } else {
             pageable = PageRequest.of(pageNumber, pageSize);
         }
-        return employeeRepository.findAll(pageable).map(employee -> (Employee) employee);
+        return ((EmployeeRepository)repository).findAll(pageable).map(employee -> (Employee) employee);
     }
 
     @Override
-    public Page<Employee> getEmployeePaginationByEmail(String email, Integer pageNumber, Integer pageSize, String sort){
+    public Page<Employee> getEmployeePaginationByEmail(Integer pageNumber, Integer pageSize, String sort){
         Pageable pageable;
         if (sort != null) {
             pageable = PageRequest.of(pageNumber, pageSize, Sort.Direction.ASC, sort);
@@ -76,21 +72,7 @@ public class EmployeeServiceImpl extends PersonServiceImpl implements EmployeeSe
             pageable = PageRequest.of(pageNumber, pageSize);
         }
 
-        return employeeRepository.findByEmailContaining(email, pageable);
+        return ((EmployeeRepository)repository).orderByEmail(pageable);
     }
 
-
-    public Page<Employee> getAllEmployees(Integer pageNo, Integer pageSize, String sortBy, String sortDir) {
-
-        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
-                : Sort.by(sortBy).descending();
-
-        // create Pageable instance
-        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
-
-        Stream<Person> persons = employeeRepository.findAll(pageable).stream();
-        List<Person> content = persons.filter(person -> person instanceof Employee).toList();
-
-        return employeeRepository.findAll(pageable).map(employee -> (Employee) employee);
-    }
 }
