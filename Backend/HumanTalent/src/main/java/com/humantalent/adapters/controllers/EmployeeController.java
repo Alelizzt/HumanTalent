@@ -203,8 +203,8 @@ public class EmployeeController extends PersonController {
         }
     }
 
-    @PostMapping("/employee")
-    public ResponseEntity<?> createEmployee(@RequestBody Person person, BindingResult result) {
+    @PostMapping("/employees")
+    public ResponseEntity<?> createEmployee(@RequestBody Employee employee, BindingResult result) {
         Map<String, Object> response = new HashMap<>();
         try {
             if(result.hasErrors()){
@@ -213,9 +213,10 @@ public class EmployeeController extends PersonController {
                 return ResponseEntity.badRequest().body(response);
             }
 
-            Person save = super.addEntity(person);
+            Person savedEmployee = ((EmployeeService) service).processEmployeeAndGenerateEmail(employee);
+
             response.put("success", Boolean.TRUE);
-            response.put("data", save);
+            response.put("data", savedEmployee);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (Exception e) {
             response.put("success", Boolean.FALSE);
@@ -224,31 +225,43 @@ public class EmployeeController extends PersonController {
         }
     }
 
-    /*
-    @PutMapping("/{id}")
-    public ResponseEntity<?> updateEmployee(@PathVariable Integer id, @RequestBody Employee employee, BindingResult result) {
-        Map<String, Object> message = new HashMap<>();
-        Person employeeUpdate = null;
-        PersonDto personDto = super.find super. findPersonById(id);
-        if(result.hasErrors()) {
-            message.put("success", Boolean.FALSE);
-            message.put("validations", super.getValidations(result));
-            return ResponseEntity.badRequest().body(message);
+
+    @PutMapping("/employees/{id}")
+    public ResponseEntity<?> updateEmployee(@PathVariable Integer id, @RequestBody Employee employee) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            Optional<Person> employeeData = service.findById(id);
+
+            if(employeeData.isPresent() && employeeData.get() instanceof Employee _employee) {
+                _employee.setFirstName(employee.getFirstName());
+                _employee.setOtherNames(employee.getOtherNames());
+                _employee.setFirstLastName(employee.getFirstLastName());
+                _employee.setSecondLastName(employee.getSecondLastName());
+                _employee.setCountry(employee.getCountry());
+                _employee.setIdType(employee.getIdType());
+                _employee.setIdentificationNum(employee.getIdentificationNum());
+
+                _employee.setWorkArea(employee.getWorkArea());
+                _employee.setEntryDate(employee.getEntryDate());
+
+                Person savedEmployee = ((EmployeeService) service).processEmployeeAndGenerateEmail(_employee);
+
+                response.put("success", Boolean.TRUE);
+                response.put("data", savedEmployee);
+
+                return ResponseEntity.status(HttpStatus.OK).body(response);
+            } else {
+                response.put("success", Boolean.FALSE);
+                response.put("message", "Employee not found with id: "+id);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+            }
+
+        } catch (Exception e) {
+            response.put("success", Boolean.FALSE);
+            response.put("message", "Error creating employee: "+e.getCause());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
-
-
-
-        employeeUpdate.setz(employee.getName());
-        employeeUpdate.setCountry(employee.getCountry());
-        employeeUpdate.setIdType(employee.getIdType());
-        employeeUpdate.setId(employee.getId());
-        employeeUpdate.setEmail(employee.getEmail());
-
-        message.put("success", Boolean.TRUE);
-        message.put("data", service.save(employeeUpdate));
-
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(message);
-    }*/
+    }
 
 
 
