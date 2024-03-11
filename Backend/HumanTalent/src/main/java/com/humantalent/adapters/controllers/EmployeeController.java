@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -202,7 +203,26 @@ public class EmployeeController extends PersonController {
         }
     }
 
+    @PostMapping("/employee")
+    public ResponseEntity<?> createEmployee(@RequestBody Person person, BindingResult result) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            if(result.hasErrors()){
+                response.put("success", Boolean.FALSE);
+                response.put("validations", super.getValidations(result));
+                return ResponseEntity.badRequest().body(response);
+            }
 
+            Person save = super.addEntity(person);
+            response.put("success", Boolean.TRUE);
+            response.put("data", save);
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        } catch (Exception e) {
+            response.put("success", Boolean.FALSE);
+            response.put("message", "Error creating employee: "+e.getCause());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
 
     /*
     @PutMapping("/{id}")
