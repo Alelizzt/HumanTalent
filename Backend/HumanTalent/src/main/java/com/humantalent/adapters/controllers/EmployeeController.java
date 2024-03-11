@@ -51,7 +51,7 @@ public class EmployeeController extends PersonController {
     }
 
     @GetMapping("/employees")
-    public ResponseEntity<?> getEmployees( @RequestParam(defaultValue = "0") int page) {
+    public ResponseEntity<?> getEmployees( @RequestParam(defaultValue = "0") Integer page) {
         Map<String, Object> response = new HashMap<>();
 
         Page<Employee> employees = ((EmployeeService)service).getEmployeePagination(page, pageSize, null);
@@ -66,10 +66,28 @@ public class EmployeeController extends PersonController {
         response.put("data", employees);
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/employees/id/{id}")
+    public ResponseEntity<?> getEmployeeById( @PathVariable Integer id) {
+        Map<String, Object> response = new HashMap<>();
+
+        Optional<Person> employeeData = service.findById(id);
+
+        if (employeeData.isEmpty()){
+            response.put("success", Boolean.FALSE);
+            response.put("data", String.format("Can't find %ss", name_entity));
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        response.put("success", Boolean.TRUE);
+        response.put("data", employeeData);
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/employees/{sort}")
     public ResponseEntity<?> getAllEmployees(
             @PathVariable String sort,
-            @RequestParam(defaultValue = "0") int page) {
+            @RequestParam(defaultValue = "0") Integer page) {
         Map<String, Object> message = new HashMap<>();
         try {
             List<Order> orders = new ArrayList<Order>();
