@@ -263,6 +263,16 @@ public class EmployeeController extends PersonController {
         }
     }
 
+    @DeleteMapping("/employees/{id}")
+    public ResponseEntity<HttpStatus> deleteEmployee(@PathVariable Integer id) {
+        try {
+            service.deleteById(id);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
 
 }
