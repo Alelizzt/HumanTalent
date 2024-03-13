@@ -12,7 +12,7 @@ export class EmployeesListComponent {
 
   employees?: Employee[];
   currentEmployee: Employee = {};
-  confirm: any;
+  confirmed: any;
 
   currentPage: number = 0;
   totalItems: number = 0;
@@ -22,7 +22,9 @@ export class EmployeesListComponent {
     private _route: ActivatedRoute,
     private _employeeService: EmployeesService,
     
-    ){  }
+    ){ 
+      this.confirmed = null;
+     }
 
   ngOnInit(){
     this.retrieveEmployees();
@@ -68,6 +70,26 @@ export class EmployeesListComponent {
       this.retrieveEmployees();
     }
   }
+
+  deleteConfirmed(id: number) {
+    this.confirmed = id;
+  }
+
+  cancelConfirmed() {
+    this.confirmed = null;
+  }
+
+  onDeleteEmployee(id: number) {
+    this._employeeService.deleteEmployee(id).subscribe({
+      next: (response: any) => {
+        this.retrieveEmployees();
+      },error: (e) => {
+            console.error(e);
+          }
+    });
+  }
+
+
 
 
 }

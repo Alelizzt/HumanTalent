@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { GLOBAL } from './global';
-import { Observable, catchError, map } from 'rxjs';
+import { Observable, catchError, map, retry } from 'rxjs';
 import { Employee } from '../../models/employee.model';
 import { DatePipe } from '@angular/common';
 
@@ -36,4 +36,9 @@ export class EmployeesService {
 
     return this._http.get<Employee>(this.url+'employees',{params});
   }
+
+  deleteEmployee(id: number) {
+    return this._http.delete(this.url+'employees/'+id);
+  }
+
 }
