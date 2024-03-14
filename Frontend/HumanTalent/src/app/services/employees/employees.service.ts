@@ -41,6 +41,16 @@ export class EmployeesService {
     return this._http.get<Employee>(`${this.url}employees/id/`+id);
   }
 
+  editEmployee(id: number, employee:Employee) {
+    let json = JSON.stringify(employee);
+    const headers = new HttpHeaders().set('Vary','Origin')
+    .set('Vary','Access-Control-Request-Method')
+    .set('Vary','Access-Control-Request-Headers')
+    .set('Content-Type','application/json');
+
+    return this._http.put<Employee>(this.url+'employees/'+id, json, {'headers': headers})
+  }
+
   deleteEmployee(id: number) {
     return this._http.delete(this.url+'employees/'+id);
   }

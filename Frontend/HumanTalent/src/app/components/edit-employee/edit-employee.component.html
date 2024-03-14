@@ -1,0 +1,157 @@
+<div class="containter">
+    <!--TODO: Add validations on front-->
+  <h3 class="h3 mt-5">Edit employee: </h3>
+  <form #formEmployee="ngForm" (ngSubmit)="onSubmit()" class="col-lg-6 m-5 p-3">
+    <div class="mb-3 mt-3">
+      <label for="fisrtName">
+        First name:
+        <div
+        *ngIf="!firstName.valid && (firstName.dirty || firstName.touched)"
+        class="alert alert-warning"
+        >
+        <div *ngIf="firstName.errors?.['required']">First name is required.</div>
+        <div *ngIf="firstName.errors?.['minlength']">First name must be at least 2 characters long.</div>
+        </div>
+    </label>
+      <input
+        type="text"
+        #firstName="ngModel"
+        class="form-control"
+        name="firstName"
+        placeholder="Enter first name"
+        id="firstName"
+        [(ngModel)]="employee.firstName"
+        minlength="2"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="otherNames">
+        Other names:
+      </label>
+      <input
+        type="text"
+        #otherNames="ngModel"
+        class="form-control"
+        name="otherNames"
+        placeholder="Enter other names"
+        id="otherNames"
+        [(ngModel)]="employee.otherNames"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="firstLastName">
+        Lastname:
+        <div
+        *ngIf="!firstLastName.valid && (firstLastName.dirty || firstLastName.touched)"
+        class="alert alert-warning"
+        >
+        <div *ngIf="firstLastName.errors?.['required']">Lastname is required.</div>
+        <div *ngIf="firstLastName.errors?.['minlength']">Lastname must be at least 2 characters long.</div>
+        </div>  
+      </label>
+      <input
+        type="text"
+        #firstLastName="ngModel"
+        class="form-control"
+        name="firstLastName"
+        placeholder="Enter first lastname"
+        id="firstLastName"
+        [(ngModel)]="employee.firstLastName"
+        minlength="2"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="secondLastName">
+        Second Lastname:
+        <div
+        *ngIf="!secondLastName.valid && (secondLastName.dirty || secondLastName.touched)"
+        class="alert alert-warning"
+        >
+        <div *ngIf="secondLastName.errors?.['required']">Second lastname is required.</div>
+        <div *ngIf="secondLastName.errors?.['minlength']">Second lastname must be at least 2 characters long.</div>
+        </div>
+      </label>
+      <input
+        type="text"
+        #secondLastName="ngModel"
+        class="form-control"
+        name="secondLastName"
+        placeholder="Enter second Lastname"
+        id="secondLastName"
+        [(ngModel)]="employee.secondLastName"
+        minlength="2"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="country">Country:</label>
+      <select class="form-select" #country="ngModel" name="country" id="country" [(ngModel)]="employee.country" required>
+        <option value="CO">Colombia</option>
+        <option value="EU">United States</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="idType">Identification type:</label>
+      <select class="form-select" #idType="ngModel" name="idType" id="idType" [(ngModel)]="employee.idType" required>
+        <option value="CITIZENSHIP_CARD">Citiezenship card</option>
+        <option value="FOREIGNER_ID">Foreigner id</option>
+        <option value="PASSPORT">Passport</option>
+        <option value="SPECIAL_PERMISSION">Special permission</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="identificationNum">
+        Identification number:
+        <div
+        *ngIf="!identificationNum.valid && (identificationNum.dirty || identificationNum.touched)"
+        class="alert alert-warning"
+        >
+        <div *ngIf="identificationNum.errors?.['required']">Identification number is required.</div>
+        <div *ngIf="identificationNum.errors?.['minlength']">Identification number must be at least 5 characters long.</div>
+        </div>
+    </label>
+      <input
+        type="text"
+        #identificationNum="ngModel"
+        class="form-control"
+        name="identificationNum"
+        placeholder="Enter identification number"
+        id="identificationNum"
+        [(ngModel)]="employee.identificationNum"
+        minlength="5"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="entryDate">Date of entry:</label>
+      <div class="col-5">
+        <input
+          type="date"
+          #entryDate="ngModel"
+          class="form-control form-date"
+          name="entryDate"
+          id="entryDate"
+          [(ngModel)]="employee.entryDate"
+          [min]="minDate"
+          [max]="maxDate"
+          required
+        />
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="workArea">Work area:</label>
+      <select class="form-select" #workArea="ngModel" name="workArea" id="workArea" [(ngModel)]="employee.workArea" required>
+        <option value="ADMINISTRATION">Administration</option>
+        <option value="FINANCE">Finance</option>
+        <option value="PROCUREMENT">Procurement</option>
+        <option value="INFRASTRUCTURE">Infraestructure</option>
+        <option value="OPERATIONS">Operations</option>
+        <option value="HUMAN_RESOURCES">Human resources</option>
+        <option value="MISCELLANEOUS_SERVICES">Miscellaneous services</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-success" [disabled]="!formEmployee.form.valid">Edit</button>
+  </form>
+</div>

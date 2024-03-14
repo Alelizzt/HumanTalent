@@ -78,6 +78,14 @@ export class EmployeesListComponent {
     )
   }
 
+  goEmployeeEdit(id: number) {
+    
+    this._router.navigate(
+      ['/edit-employee', id]
+    )
+  }
+  
+
   deleteConfirmed(id: number) {
     this.confirmed = id;
   }
