@@ -42,7 +42,7 @@
             <td class="text-center">{{ employee.secondLastName }}</td>
             <td class="text-center">{{ employee.country }}</td>
             <td class="text-center">
-              <a class="btn btn-sm btn-secondary m-1"><span class="fa-regular fa-eye"></span></a>
+              <a (click)="goEmployeeDetail(employee.id)" class="btn btn-sm btn-secondary m-1"><span class="fa-regular fa-eye"></span></a>
               <!-- <a class="btn btn-sm btn-warning"><span class="fa-regular fa-pen-to-square"></span></a> -->
               <a (click)="deleteConfirmed(employee.id)" class="btn btn-sm btn-danger m-1" data-bs-toggle="modal"  [attr.data-bs-target]="'#deleteModal-' + employee.id"><span class="fa-regular fa-trash-can"></span></a>
             </td>

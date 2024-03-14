@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ActivatedRoute, Route } from '@angular/router';
+import { ActivatedRoute, Route, Router, Params } from '@angular/router';
 import { EmployeesService } from '../../services/employees/employees.service';
 import { Employee } from '../../models/employee.model';
 
@@ -20,6 +20,7 @@ export class EmployeesListComponent {
 
   constructor(
     private _route: ActivatedRoute,
+    private _router: Router,
     private _employeeService: EmployeesService,
     
     ){ 
@@ -69,6 +70,12 @@ export class EmployeesListComponent {
       this.currentPage = pageNumber;
       this.retrieveEmployees();
     }
+  }
+
+  goEmployeeDetail(id : number) {
+    this._router.navigate(
+      ['/employee', id]
+    )
   }
 
   deleteConfirmed(id: number) {
