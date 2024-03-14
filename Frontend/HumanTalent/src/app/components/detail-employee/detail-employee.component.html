@@ -1,0 +1,48 @@
+<div class="containter">
+
+@if(!employee) {
+    <div class="text-center p-5">
+        <div class="spinner-border text-muted"></div>
+        Loading employee ...
+      </div>
+} @else {
+<h1 class="mt-5">
+  {{ employee.firstLastName }}
+  {{ employee.secondLastName }}
+  {{ employee.firstName }}
+  {{ employee.otherNames }}
+</h1>
+<h2>
+  <small>
+     <a href="mailto:{{employee.email}}"> {{ employee.email }} </a>
+  </small>
+</h2>
+<h3>
+{{employee.workArea?.toLocaleLowerCase()}}
+</h3>
+
+@if(employee.country === "CO") {
+  <h4><span class="fa-regular fa-flag"></span> Colombia</h4>
+} @else if (employee.country == "EU") {
+  <h4><span class="fa-regular fa-flag"></span>United States of America</h4>
+}
+  <h5> <strong>Identification type:</strong> {{ employee.idType?.toLowerCase() }} </h5>
+  <h5> <strong>Identification:</strong>  {{ employee.identificationNum }}</h5>
+
+  <h5><strong>Entry date:</strong> {{ employee.entryDate | date: 'dd/MM/yyyy' }} </h5>
+  <h5><strong>Registration date:</strong> {{ employee.regDateTime | date: 'dd/MM/yyyy HH:mm:ss' }} </h5>
+             
+             
+  <h5><strong>State: </strong>
+    @if(employee.state){
+      <span class="fa-solid fa-circle"></span> Active
+    } @else {
+      <span class="fa-regular fa-circle"></span> Inactive
+    }
+  </h5>
+    
+             
+}
+
+
+</div>
