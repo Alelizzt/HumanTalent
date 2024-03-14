@@ -72,9 +72,9 @@
   </div>
 
   <ul class="pagination justify-content-center">
-    <button class="btn btn-secondary" (click)="goToPreviousPage()" [disabled]="currentPage === 0"><span class="fa-solid fa-caret-left"></span></button>
+    <button class="btn btn-secondary" (click)="goToPreviousPage();gotoTop()" [disabled]="currentPage === 0"><span class="fa-solid fa-caret-left"></span></button>
     <span class="m-2">Page {{currentPage + 1}} of {{totalPages}}</span>
-    <button class="btn btn-secondary" (click)="goToNextPage()" [disabled]="currentPage === totalPages-1"><span class="fa-solid fa-caret-right"></span></button>
+    <button class="btn btn-secondary" (click)="goToNextPage();gotoTop()" [disabled]="currentPage === totalPages-1"><span class="fa-solid fa-caret-right"></span></button>
   </ul>
 }
 </div>
