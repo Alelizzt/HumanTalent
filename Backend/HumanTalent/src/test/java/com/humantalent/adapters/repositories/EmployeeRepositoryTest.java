@@ -1,6 +1,8 @@
 package com.humantalent.adapters.repositories;
 
 import com.humantalent.domain.model.employee.Employee;
+import org.junit.Ignore;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -39,4 +41,38 @@ class EmployeeRepositoryTest {
         assertEquals(42, employeesOrderedByEmail.getTotalElements());
     }
 
+    @Test
+    @Disabled
+    void orderByWorkArea() {
+    }
+
+    @Test
+    @Disabled
+    void orderByState() {
+    }
+
+    @Test
+    @Disabled
+    void orderByRegDateTime() {
+    }
+
+    @Test
+    @Disabled
+    void orderByEntryDate() {
+    }
+
+    @Test
+    @Disabled
+    void findByEmailContaining() {
+    }
+
+    @Test
+    @Disabled
+    void existsByEmail() {
+    }
+
+    @Test
+    @Disabled
+    void findByState() {
+    }
 }
