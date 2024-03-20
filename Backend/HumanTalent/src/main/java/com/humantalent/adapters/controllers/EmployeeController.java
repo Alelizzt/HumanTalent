@@ -1,15 +1,18 @@
 package com.humantalent.adapters.controllers;
 
 import com.humantalent.application.service.contracts.EmployeeService;
-import com.humantalent.application.service.contracts.PersonService;
 import com.humantalent.domain.model.employee.Employee;
 import com.humantalent.domain.model.person.Person;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.http.HttpStatus;
@@ -27,11 +30,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
-import java.util.stream.Stream;
 
+/**
+ * Controlador para empleados
+ * @author @Alexlizzt
+ * @version v1
+ */
 @RestController
 @CrossOrigin(origins = "http://localhost:4200/", maxAge = 4800, allowCredentials = "false")//http://localhost:4200
 @RequestMapping("/talent")
+@Tag(name ="Employees", description = "Administración de los empleados")
 public class EmployeeController extends PersonController {
 
     final Integer pageSize = 10;
@@ -50,6 +58,11 @@ public class EmployeeController extends PersonController {
         return Sort.Direction.ASC;
     }
 
+    @Operation(summary = "Obtiene todos los empleados, paginados por 10")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Listado de empleados",
+            content = @Content(array = @ArraySchema(schema = @Schema(implementation = Employee.class))))
+    })
     @GetMapping("/employees")
     public ResponseEntity<?> getEmployees( @RequestParam(defaultValue = "0") Integer page) {
         Map<String, Object> response = new HashMap<>();
