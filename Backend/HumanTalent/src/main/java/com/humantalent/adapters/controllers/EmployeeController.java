@@ -234,6 +234,12 @@ public class EmployeeController extends PersonController {
         }
     }
 
+    @Operation(summary = "Registra un nuevo empleado")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Se registra el empleado", content = @Content(schema = @Schema(implementation = Employee.class))),
+            @ApiResponse(responseCode = "400", description = "La petición se realizó de forma inadecuada y no pasó las validaciones"),
+            @ApiResponse(responseCode = "500", description = "Empleado ya registrado | Error por parte del servidor / base de datos")
+    })
     @PostMapping("/employees")
     public ResponseEntity<?> createEmployee(@RequestBody Employee employee, BindingResult result) {
         Map<String, Object> response = new HashMap<>();
