@@ -294,6 +294,11 @@ public class EmployeeController extends PersonController {
         }
     }
 
+    @Operation(summary = "Elimina un empleado")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "202", description = "Se acepta la petición y se procede a eliminar el empleado, no se confirma si el empleado existe"),
+            @ApiResponse(responseCode = "500", description = "Error por parte del servidor/base de datos")
+    })
     @DeleteMapping("/employees/{id}")
     public ResponseEntity<HttpStatus> deleteEmployee(@PathVariable Integer id) {
         try {
