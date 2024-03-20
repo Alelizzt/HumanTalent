@@ -39,31 +39,4 @@ class EmployeeRepositoryTest {
         assertEquals(42, employeesOrderedByEmail.getTotalElements());
     }
 
-    @Test
-    void orderByWorkArea() {
-    }
-
-    @Test
-    void orderByState() {
-    }
-
-    @Test
-    void orderByRegDateTime() {
-    }
-
-    @Test
-    void orderByEntryDate() {
-    }
-
-    @Test
-    void findByEmailContaining() {
-    }
-
-    @Test
-    void existsByEmail() {
-    }
-
-    @Test
-    void findByState() {
-    }
 }
