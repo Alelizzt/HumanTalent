@@ -257,6 +257,11 @@ public class EmployeeController extends PersonController {
     }
 
 
+    @Operation(summary = "Modifica un empleado en el registro")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Se modifica el empleado", content = @Content(schema = @Schema(implementation = Employee.class))),
+            @ApiResponse(responseCode = "404", description = "El empleado no existe")
+    })
     @PutMapping("/employees/{id}")
     public ResponseEntity<?> updateEmployee(@PathVariable Integer id, @RequestBody Employee employee) {
         Map<String, Object> response = new HashMap<>();
