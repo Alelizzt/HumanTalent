@@ -5,8 +5,10 @@ import com.humantalent.domain.model.employee.Employee;
 import com.humantalent.domain.model.person.Person;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -80,6 +82,12 @@ public class EmployeeController extends PersonController {
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "Search employee with id system")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Se completa la petición y responde con el empleado encontrado"),
+            @ApiResponse(responseCode = "400", description = "La petición se realizó de forma inadecuada y no pasó las validaciones"),
+            @ApiResponse(responseCode = "502", description = "No se ha encontrado el empleado solicitado")
+    })
     @GetMapping("/employees/id/{id}")
     public ResponseEntity<?> getEmployeeById( @PathVariable Integer id) {
         Map<String, Object> response = new HashMap<>();
@@ -97,6 +105,13 @@ public class EmployeeController extends PersonController {
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "Obtiene los empleados ordenados según el parametro {sort}, " +
+            "ejemplo:\"id\", \"firstName\",\"otherNames\", \"firstLastName\", \"secondLastName\", \"country\", \"idType\", \"identificationNum\"")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Se completa la petición y responde con la lista de empleados"),
+            @ApiResponse(responseCode = "400", description = "La petición se realizó de forma inadecuada y no pasó las validaciones"),
+            @ApiResponse(responseCode = "500", description = "Empleado ya registrado | Error por parte del servidor / base de datos")
+    })
     @GetMapping("/employees/{sort}")
     public ResponseEntity<?> getAllEmployees(
             @PathVariable String sort,
@@ -123,6 +138,12 @@ public class EmployeeController extends PersonController {
         }
     }
 
+    @Operation(summary = "Obtiene los empleados ordenados por email")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Se completa la petición y responde con la lista de empleados"),
+            @ApiResponse(responseCode = "400", description = "La petición se realizó de forma inadecuada y no pasó las validaciones"),
+            @ApiResponse(responseCode = "500", description = "Empleado ya registrado | Error por parte del servidor / base de datos")
+    })
     @GetMapping("/employees/email")
     public ResponseEntity<Map<String, Object>> orderEmployeeByEmail(@RequestParam (defaultValue = "0") int page ) {
         Map<String, Object> message = new HashMap<>();
@@ -146,6 +167,12 @@ public class EmployeeController extends PersonController {
         }
     }
 
+    @Operation(summary = "Obtiene los empleados ordenados por área de trabajo")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Se completa la petición y responde con la lista de empleados"),
+            @ApiResponse(responseCode = "400", description = "La petición se realizó de forma inadecuada y no pasó las validaciones"),
+            @ApiResponse(responseCode = "500", description = "Empleado ya registrado | Error por parte del servidor / base de datos")
+    })
     @GetMapping("/employees/workArea")
     public ResponseEntity<Map<String, Object>> orderEmployeeByWorkArea(@RequestParam (defaultValue = "0") int page ) {
         Map<String, Object> message = new HashMap<>();
@@ -168,6 +195,12 @@ public class EmployeeController extends PersonController {
         }
     }
 
+    @Operation(summary = "Obtiene los empleados ordenados por estado")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Se completa la petición y responde con la lista de empleados"),
+            @ApiResponse(responseCode = "400", description = "La petición se realizó de forma inadecuada y no pasó las validaciones"),
+            @ApiResponse(responseCode = "500", description = "Empleado ya registrado | Error por parte del servidor / base de datos")
+    })
     @GetMapping("/employees/state")
     public ResponseEntity<Map<String, Object>> orderEmployeeByState(@RequestParam (defaultValue = "0") int page ) {
         Map<String, Object> message = new HashMap<>();
@@ -190,6 +223,12 @@ public class EmployeeController extends PersonController {
         }
     }
 
+    @Operation(summary = "Obtiene los empleados ordenados por fecha de registro")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Se completa la petición y responde con la lista de empleados"),
+            @ApiResponse(responseCode = "400", description = "La petición se realizó de forma inadecuada y no pasó las validaciones"),
+            @ApiResponse(responseCode = "500", description = "Empleado ya registrado | Error por parte del servidor / base de datos")
+    })
     @GetMapping("/employees/regDateTime")
     public ResponseEntity<Map<String, Object>> orderEmployeeByRegDateTime(@RequestParam (defaultValue = "0") int page ) {
         Map<String, Object> message = new HashMap<>();
@@ -212,6 +251,12 @@ public class EmployeeController extends PersonController {
         }
     }
 
+    @Operation(summary = "Obtiene los empleados ordenados por fecha de ingreso")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Se completa la petición y responde con la lista de empleados"),
+            @ApiResponse(responseCode = "400", description = "La petición se realizó de forma inadecuada y no pasó las validaciones"),
+            @ApiResponse(responseCode = "500", description = "Empleado ya registrado | Error por parte del servidor / base de datos")
+    })
     @GetMapping("/employees/entryDate")
     public ResponseEntity<Map<String, Object>> orderEmployeeByEntryDate(@RequestParam (defaultValue = "0") int page ) {
         Map<String, Object> message = new HashMap<>();
