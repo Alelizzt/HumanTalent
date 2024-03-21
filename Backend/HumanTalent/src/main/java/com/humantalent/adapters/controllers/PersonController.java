@@ -17,8 +17,7 @@ public class PersonController extends GenericController<Person, PersonService>{
     public PersonController(PersonService service, String name_entity) {
         super(service, name_entity);
     }
-
-    @GetMapping("/name")
+    
     public ResponseEntity<?> findPersonByName(@RequestParam String firstName) {
         Map<String, Object> message = new HashMap<>();
         List<Person> oPerson = (List<Person>) service.findByFirstName(firstName);
@@ -32,7 +31,6 @@ public class PersonController extends GenericController<Person, PersonService>{
         return ResponseEntity.ok(message);
     }
 
-    @GetMapping("/other-names")
     public ResponseEntity<?> findByOtherNames(@RequestParam String otherNames) {
         Map<String, Object> message = new HashMap<>();
         List<Person> oPerson = (List<Person>) service.findByOtherNames(otherNames);
@@ -84,7 +82,6 @@ public class PersonController extends GenericController<Person, PersonService>{
         return ResponseEntity.ok(message);
     }
 
-    @GetMapping("/{id}")
     public ResponseEntity<?> findByIdNumber(@RequestParam String idNumber) {
         Map<String, Object> message = new HashMap<>();
         Optional<Person> oPerson = service.findByIdNumber(idNumber);
