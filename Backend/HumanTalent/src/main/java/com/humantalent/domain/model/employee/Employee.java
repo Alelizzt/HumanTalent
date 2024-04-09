@@ -1,6 +1,7 @@
 package com.humantalent.domain.model.employee;
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.humantalent.domain.model.person.PersonCountry;
+import com.humantalent.domain.model.person.PersonIdType;
 import com.humantalent.domain.utils.EmailGenerator;
 import com.humantalent.domain.model.person.Person;
 import com.humantalent.domain.utils.LocalDateTimeConverter;
@@ -8,7 +9,6 @@ import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
 
 import java.time.LocalDate;
@@ -24,6 +24,11 @@ import java.time.LocalDateTime;
 @PrimaryKeyJoinColumn(name = "person_id")
 @Schema(oneOf = Person.class, description = "Tipo de persona")
 public class Employee extends Person {
+
+    public Employee(Integer id, String firstName, String otherNames, String firstLastName, String secondLastName,
+                    PersonCountry country, PersonIdType idType, String identificationNum) {
+        super(id, firstName, otherNames, firstLastName, secondLastName, country, idType, identificationNum);
+    }
 
     @Schema(description = "Área de trabajo del empleado", examples = {
             "ADMINISTRATION",

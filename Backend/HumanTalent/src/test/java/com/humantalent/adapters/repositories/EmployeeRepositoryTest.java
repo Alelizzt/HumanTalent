@@ -1,8 +1,13 @@
 package com.humantalent.adapters.repositories;
 
 import com.humantalent.domain.model.employee.Employee;
+import com.humantalent.domain.model.person.Person;
+import com.humantalent.domain.model.person.PersonCountry;
+import com.humantalent.domain.model.person.PersonIdType;
+import com.humantalent.data.DummyData.*;
 import org.junit.Ignore;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,66 +18,104 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.jdbc.Sql;
 
+import java.util.List;
+import java.util.Optional;
+
+import static com.humantalent.data.DummyData.employee01;
+import static com.humantalent.data.DummyData.employee02;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @DataJpaTest
-@Sql(scripts = "/data-testing.sql")
+//@Sql(scripts = "/data-testing.sql")
 class EmployeeRepositoryTest {
     @Autowired
     @Qualifier("employeeRepository")
     PersonRepository employeeRepository;
 
+    @DisplayName("Test para guardar un empleado")
     @Test
-    void orderByEmail() {
-        // Given: Create Pageable with sorting by email in ascending order
-        Pageable pageable = PageRequest.of(0, 10, Sort.by(Sort.Direction.ASC, "email"));
+    void saveEmployee(){
+        // Given
+        Employee employee = new Employee (null,"Maria","Fernanda",
+                "Perez","Jimenez",
+                PersonCountry.CO, PersonIdType.CITIZENSHIP_CARD,
+                "1033763321");
 
-        // When: Call orderByEmail method to get the ordered page
-        Page<Employee> employeesOrderedByEmail = ((EmployeeRepository) employeeRepository).orderByEmail(pageable);
+        // When
+        Employee savedEmployee = employeeRepository.save(employee);
 
-        // Then: Verify that the page is ordered correctly
-        assertEquals("aimee.humphrey@company.com.eu", employeesOrderedByEmail.getContent().get(0).getEmail());
-        assertEquals("alfonso.cash@company.com.eu", employeesOrderedByEmail.getContent().get(1).getEmail());
-        assertEquals("alma.conway@company.com.eu", employeesOrderedByEmail.getContent().get(2).getEmail());
-
-        // You can also check other properties of the Page object if needed
-        assertEquals(10, employeesOrderedByEmail.getSize());
-        assertEquals(42, employeesOrderedByEmail.getTotalElements());
+        // Then
+        assertThat(savedEmployee).isNotNull();
+        assertThat(savedEmployee.getId()).isGreaterThan(0);
     }
 
+    @DisplayName("Test para listar a los empleados")
     @Test
-    @Disabled
-    void orderByWorkArea() {
+    void showEmployees() {
+        // Given
+        employeeRepository.save(employee01());
+        employeeRepository.save(employee02());
+
+        // When
+        List<Person> employeeList = employeeRepository.findAll();
+
+        // Then
+        assertThat(employeeList).isNotNull();
+        assertThat(employeeList.size()).isEqualTo(2);
     }
 
+    @DisplayName("Test para obtener un empleado por id")
     @Test
-    @Disabled
-    void orderByState() {
+    void getEmployeeById() {
+        // Given
+        Employee testEmployee = (Employee) employee01();
+        employeeRepository.save(testEmployee);
+
+        // When
+        Person employeeDB = employeeRepository.findById(testEmployee.getId()).get();
+
+        // Then
+        assertThat(employeeDB).isNotNull();
     }
 
+    @DisplayName("Test para actualizar un empleado")
     @Test
-    @Disabled
-    void orderByRegDateTime() {
+    void updateEmployee() {
+        // Given
+        Employee testEmployee = (Employee) employee02();
+        employeeRepository.save(testEmployee);
+
+        List<Person> all = employeeRepository.findAll();
+        // When
+        Person savedEmployee = employeeRepository.findById(testEmployee.getId()).get();
+        savedEmployee.setFirstName("Ivan");
+        savedEmployee.setFirstLastName("Soza");
+        savedEmployee.setIdentificationNum("1022485123");
+
+        Employee updatedEmployee = (Employee) employeeRepository.save(savedEmployee);
+
+        // Then
+        assertThat(updatedEmployee.getFirstName()).isEqualTo("Ivan");
+        assertThat(updatedEmployee.getFirstLastName()).isEqualTo("Soza");
+        assertThat(updatedEmployee.getIdentificationNum()).isEqualTo("1022485123");
+
     }
 
+    @DisplayName("Test para eliminar un empleado")
     @Test
-    @Disabled
-    void orderByEntryDate() {
+    void deleteEmployee() {
+        // Given
+        Employee testEmployee = (Employee) employee01();
+        employeeRepository.save(testEmployee);
+
+        // When
+        employeeRepository.deleteById(testEmployee.getId());
+        Optional<Person> optionalEmployee = employeeRepository.findById(testEmployee.getId());
+
+        // Then
+        assertThat(optionalEmployee).isEmpty();
+
     }
 
-    @Test
-    @Disabled
-    void findByEmailContaining() {
-    }
-
-    @Test
-    @Disabled
-    void existsByEmail() {
-    }
-
-    @Test
-    @Disabled
-    void findByState() {
-    }
 }
