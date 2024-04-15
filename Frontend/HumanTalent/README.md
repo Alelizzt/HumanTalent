@@ -14,7 +14,7 @@ Ejecute `ng serve` para arrancar un servidor de desarrollo. Entra a `http://loca
 
 ## Build
 
-Ejecute `ng build` para construir el proyecto. Los artefactos construidos se almacenarán en el directorio `dist/`.
+Ejecute `ng build --base-href ./` para construir el proyecto. Los artefactos construidos se almacenarán en el directorio `dist/`.
 
 ## Ejecutar pruebas unitarias
 

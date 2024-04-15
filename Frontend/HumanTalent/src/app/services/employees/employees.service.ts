@@ -10,7 +10,7 @@ import { DatePipe } from '@angular/common';
   providedIn: 'root'
 })
 export class EmployeesService {
-  
+
   private url :string = GLOBAL.url;
 
   constructor( private _http: HttpClient) {
@@ -27,7 +27,7 @@ export class EmployeesService {
     .set('Vary','Access-Control-Request-Headers')
     .set('Content-Type','application/json');
 
-    return this._http.post<Employee>(this.url+'employee',json, {'headers': headers});
+    return this._http.post<Employee>(this.url+'employees',json, {'headers': headers});
   }
 
   getPaginatedData(page: number): Observable<Employee> {

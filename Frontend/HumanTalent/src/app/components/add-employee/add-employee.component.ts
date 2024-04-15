@@ -12,7 +12,7 @@ export class AddEmployeeComponent {
   public employee: Employee;
   minDate: string;
   maxDate: string = new Date().toISOString().split('T')[0];
-  
+
 
   constructor(
     private _employeeService: EmployeesService,
