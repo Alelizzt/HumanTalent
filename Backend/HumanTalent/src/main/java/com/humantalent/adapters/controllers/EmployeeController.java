@@ -40,7 +40,7 @@ import java.util.*;
  */
 @RestController
 @CrossOrigin(origins = "http://localhost:4200/", maxAge = 4800, allowCredentials = "false")//http://localhost:4200
-@RequestMapping("/talent")
+@RequestMapping("/api/v1/talent")
 @Tag(name ="Employees", description = "Administración de los empleados")
 public class EmployeeController extends PersonController {
 
