@@ -9,7 +9,25 @@
 
 
 } @else {
-
+  <div class="containter m-2 p-1 w-25">
+    <p>Order employees by:</p>
+    <select #filter (change)="applyFilter(filter.value)" name="filter" id="filter" class="form-select">
+      <option value="">default</option>
+      <option value="id">id system</option>
+      <option value="firstName">first name</option>
+      <option value="otherNames">other names</option>
+      <option value="firstLastName">first last name</option>
+      <option value="secondLastName">second last name</option>
+      <option value="country">country</option>
+      <option value="idType">id type</option>
+      <option value="identificationNum">identification number</option>
+      <option value="workArea">work area</option>
+      <option value="state">state</option>
+      <option value="regDateTime">registration date</option>
+      <option value="entryDate">entry date</option>
+      <option value="email">email</option>
+    </select>
+  </div>
 
   <div class="card m-5 p-3">
     <div class="card-body table-responsive">
