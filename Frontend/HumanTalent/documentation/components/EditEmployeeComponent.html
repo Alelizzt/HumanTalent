@@ -1,0 +1,933 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>human-talent documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">human-talent documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  EditEmployeeComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/components/edit-employee/edit-employee.component.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Componente que se encarga de la edicion de los atributos de un empleado.</p>
+
+    </p>
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-edit-employee</code></td>
+            </tr>
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./edit-employee.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./edit-employee.component.css</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#employee" >employee</a>
+                            </li>
+                            <li>
+                                <a href="#maxDate" >maxDate</a>
+                            </li>
+                            <li>
+                                <a href="#minDate" >minDate</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#getEmployee" >getEmployee</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onSubmit" >onSubmit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(_employeeService: <a href="../injectables/EmployeesService.html" target="_self">EmployeesService</a>, _route: ActivatedRoute, _router: Router)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/components/edit-employee/edit-employee.component.ts:29</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>_employeeService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/EmployeesService.html" target="_self" >EmployeesService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>_route</td>
+                                                  
+                                                        <td>
+                                                                    <code>ActivatedRoute</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>_router</td>
+                                                  
+                                                        <td>
+                                                                    <code>Router</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getEmployee"></a>
+                    <span class="name">
+                        <span ><b>getEmployee</b></span>
+                        <a href="#getEmployee"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getEmployee()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="86"
+                                    class="link-to-prism">src/app/components/edit-employee/edit-employee.component.ts:86</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Obtiene el empleado seleccionado segun su id recogido por parametro, se envia al servicio
+&#39;employeeService&#39; para realizar la peticion REST.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="57"
+                                    class="link-to-prism">src/app/components/edit-employee/edit-employee.component.ts:57</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Al arrancar el componente se ejecuta el metodo &#39;getEmployee&#39;.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onSubmit"></a>
+                    <span class="name">
+                        <span ><b>onSubmit</b></span>
+                        <a href="#onSubmit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onSubmit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="65"
+                                    class="link-to-prism">src/app/components/edit-employee/edit-employee.component.ts:65</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Al enviar el formulario, se agrega el parametro que solicita el servidor REST para identificar
+el tipo de usuario a modificar, se espera que al terminar redireccione a &#39;/employee&#39;.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="employee"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>employee</b></span>
+                        <a href="#employee"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Employee.html" target="_self" >Employee</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/components/edit-employee/edit-employee.component.ts:19</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Referencia local del empleado.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="maxDate"></a>
+                    <span class="name">
+                        <span ><b>maxDate</b></span>
+                        <a href="#maxDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Date().toISOString().split(&#x27;T&#x27;)[0]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/components/edit-employee/edit-employee.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Fecha maxima de ingreso.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="minDate"></a>
+                    <span class="name">
+                        <span ><b>minDate</b></span>
+                        <a href="#minDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/components/edit-employee/edit-employee.component.ts:24</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Fecha minima de ingreso.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
+import { Employee } from &#x27;../../models/employee.model&#x27;;
+import { EmployeesService } from &#x27;../../services/employees/employees.service&#x27;;
+import { ActivatedRoute, Params, Router } from &#x27;@angular/router&#x27;;
+
+/**
+ * Componente que se encarga de la edicion de los atributos de un empleado.
+ */
+@Component({
+  selector: &#x27;app-edit-employee&#x27;,
+  templateUrl: &#x27;./edit-employee.component.html&#x27;,
+  styleUrl: &#x27;./edit-employee.component.css&#x27;
+})
+export class EditEmployeeComponent {
+
+  /**
+   * Referencia local del empleado.
+   */
+  public employee: Employee;
+
+  /**
+   * Fecha minima de ingreso.
+   */
+  minDate: string;
+
+  /**
+   * Fecha maxima de ingreso.
+   */
+  maxDate: string &#x3D; new Date().toISOString().split(&#x27;T&#x27;)[0];
+
+  constructor(
+    private _employeeService: EmployeesService,
+    private _route: ActivatedRoute,
+    private _router: Router
+  ){
+    this.employee &#x3D; new Employee();
+    /**
+     * Se calcula con la fecha actual, la fecha minima de ingreso.
+     */
+    const actualDate &#x3D; new Date();
+    const lastMonth &#x3D; actualDate.getMonth() - 1;
+    let year &#x3D; actualDate.getFullYear();
+
+    let month;
+    if(lastMonth &#x3D;&#x3D;&#x3D; -1) {
+      month &#x3D; 11;
+      year &#x3D; year - 1;
+    } else {
+      month &#x3D; lastMonth;
+    }
+    this.minDate &#x3D; new Date(year, month, actualDate.getDate()).toISOString().split(&#x27;T&#x27;)[0];
+  }
+
+  /**
+   * Al arrancar el componente se ejecuta el metodo &#x27;getEmployee&#x27;.
+   */
+  ngOnInit(){
+    this.getEmployee();
+  }
+
+  /**
+   * Al enviar el formulario, se agrega el parametro que solicita el servidor REST para identificar
+   * el tipo de usuario a modificar, se espera que al terminar redireccione a &#x27;/employee&#x27;.
+   */
+  onSubmit() {
+    this._route.params.forEach((params: Params) &#x3D;&gt; {
+      let id &#x3D; params[&#x27;id&#x27;];
+      this.employee.type&#x3D;&quot;employee&quot;;
+      this._employeeService.editEmployee(id, this.employee).subscribe({
+        next: (response: any) &#x3D;&gt; {
+          if(response.success &#x3D;&#x3D;&#x3D; true){
+            this._router.navigate([&quot;/employee&quot;, id])
+          }
+        },
+          error: (e) &#x3D;&gt; {
+            console.error(e);
+          }
+      });
+    });
+  }
+
+  /**
+   * Obtiene el empleado seleccionado segun su id recogido por parametro, se envia al servicio
+   * &#x27;employeeService&#x27; para realizar la peticion REST.
+   */
+  getEmployee() {
+    this._route.params.forEach((params: Params) &#x3D;&gt; {
+      let id &#x3D; params[&#x27;id&#x27;];
+      this._employeeService.getEmployee(id).subscribe({
+        next: (response: any) &#x3D;&gt; {
+          if(response.success &#x3D;&#x3D;&#x3D; true){
+            this.employee &#x3D; response.data;
+          }
+        },
+          error: (e) &#x3D;&gt; {
+            console.error(e);
+          }
+      });
+    });
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;containter&quot;&gt;
+    &lt;!--TODO: Add validations on front--&gt;
+  &lt;h3 class&#x3D;&quot;h3 mt-5&quot;&gt;Edit employee: &lt;/h3&gt;
+  &lt;form #formEmployee&#x3D;&quot;ngForm&quot; (ngSubmit)&#x3D;&quot;onSubmit()&quot; class&#x3D;&quot;col-lg-6 m-5 p-3&quot;&gt;
+    &lt;div class&#x3D;&quot;mb-3 mt-3&quot;&gt;
+      &lt;label for&#x3D;&quot;fisrtName&quot;&gt;
+        First name:
+        &lt;div
+        *ngIf&#x3D;&quot;!firstName.valid &amp;&amp; (firstName.dirty || firstName.touched)&quot;
+        class&#x3D;&quot;alert alert-warning&quot;
+        &gt;
+        &lt;div *ngIf&#x3D;&quot;firstName.errors?.[&#x27;required&#x27;]&quot;&gt;First name is required.&lt;/div&gt;
+        &lt;div *ngIf&#x3D;&quot;firstName.errors?.[&#x27;minlength&#x27;]&quot;&gt;First name must be at least 2 characters long.&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/label&gt;
+      &lt;input
+        type&#x3D;&quot;text&quot;
+        #firstName&#x3D;&quot;ngModel&quot;
+        class&#x3D;&quot;form-control&quot;
+        name&#x3D;&quot;firstName&quot;
+        placeholder&#x3D;&quot;Enter first name&quot;
+        id&#x3D;&quot;firstName&quot;
+        [(ngModel)]&#x3D;&quot;employee.firstName&quot;
+        minlength&#x3D;&quot;2&quot;
+        required
+      /&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;mb-3&quot;&gt;
+      &lt;label for&#x3D;&quot;otherNames&quot;&gt;
+        Other names:
+      &lt;/label&gt;
+      &lt;input
+        type&#x3D;&quot;text&quot;
+        #otherNames&#x3D;&quot;ngModel&quot;
+        class&#x3D;&quot;form-control&quot;
+        name&#x3D;&quot;otherNames&quot;
+        placeholder&#x3D;&quot;Enter other names&quot;
+        id&#x3D;&quot;otherNames&quot;
+        [(ngModel)]&#x3D;&quot;employee.otherNames&quot;
+      /&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;mb-3&quot;&gt;
+      &lt;label for&#x3D;&quot;firstLastName&quot;&gt;
+        Lastname:
+        &lt;div
+        *ngIf&#x3D;&quot;!firstLastName.valid &amp;&amp; (firstLastName.dirty || firstLastName.touched)&quot;
+        class&#x3D;&quot;alert alert-warning&quot;
+        &gt;
+        &lt;div *ngIf&#x3D;&quot;firstLastName.errors?.[&#x27;required&#x27;]&quot;&gt;Lastname is required.&lt;/div&gt;
+        &lt;div *ngIf&#x3D;&quot;firstLastName.errors?.[&#x27;minlength&#x27;]&quot;&gt;Lastname must be at least 2 characters long.&lt;/div&gt;
+        &lt;/div&gt;  
+      &lt;/label&gt;
+      &lt;input
+        type&#x3D;&quot;text&quot;
+        #firstLastName&#x3D;&quot;ngModel&quot;
+        class&#x3D;&quot;form-control&quot;
+        name&#x3D;&quot;firstLastName&quot;
+        placeholder&#x3D;&quot;Enter first lastname&quot;
+        id&#x3D;&quot;firstLastName&quot;
+        [(ngModel)]&#x3D;&quot;employee.firstLastName&quot;
+        minlength&#x3D;&quot;2&quot;
+        required
+      /&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;mb-3&quot;&gt;
+      &lt;label for&#x3D;&quot;secondLastName&quot;&gt;
+        Second Lastname:
+        &lt;div
+        *ngIf&#x3D;&quot;!secondLastName.valid &amp;&amp; (secondLastName.dirty || secondLastName.touched)&quot;
+        class&#x3D;&quot;alert alert-warning&quot;
+        &gt;
+        &lt;div *ngIf&#x3D;&quot;secondLastName.errors?.[&#x27;required&#x27;]&quot;&gt;Second lastname is required.&lt;/div&gt;
+        &lt;div *ngIf&#x3D;&quot;secondLastName.errors?.[&#x27;minlength&#x27;]&quot;&gt;Second lastname must be at least 2 characters long.&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/label&gt;
+      &lt;input
+        type&#x3D;&quot;text&quot;
+        #secondLastName&#x3D;&quot;ngModel&quot;
+        class&#x3D;&quot;form-control&quot;
+        name&#x3D;&quot;secondLastName&quot;
+        placeholder&#x3D;&quot;Enter second Lastname&quot;
+        id&#x3D;&quot;secondLastName&quot;
+        [(ngModel)]&#x3D;&quot;employee.secondLastName&quot;
+        minlength&#x3D;&quot;2&quot;
+        required
+      /&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;mb-3&quot;&gt;
+      &lt;label for&#x3D;&quot;country&quot;&gt;Country:&lt;/label&gt;
+      &lt;select class&#x3D;&quot;form-select&quot; #country&#x3D;&quot;ngModel&quot; name&#x3D;&quot;country&quot; id&#x3D;&quot;country&quot; [(ngModel)]&#x3D;&quot;employee.country&quot; required&gt;
+        &lt;option value&#x3D;&quot;CO&quot;&gt;Colombia&lt;/option&gt;
+        &lt;option value&#x3D;&quot;EU&quot;&gt;United States&lt;/option&gt;
+      &lt;/select&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;mb-3&quot;&gt;
+      &lt;label for&#x3D;&quot;idType&quot;&gt;Identification type:&lt;/label&gt;
+      &lt;select class&#x3D;&quot;form-select&quot; #idType&#x3D;&quot;ngModel&quot; name&#x3D;&quot;idType&quot; id&#x3D;&quot;idType&quot; [(ngModel)]&#x3D;&quot;employee.idType&quot; required&gt;
+        &lt;option value&#x3D;&quot;CITIZENSHIP_CARD&quot;&gt;Citiezenship card&lt;/option&gt;
+        &lt;option value&#x3D;&quot;FOREIGNER_ID&quot;&gt;Foreigner id&lt;/option&gt;
+        &lt;option value&#x3D;&quot;PASSPORT&quot;&gt;Passport&lt;/option&gt;
+        &lt;option value&#x3D;&quot;SPECIAL_PERMISSION&quot;&gt;Special permission&lt;/option&gt;
+      &lt;/select&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;mb-3&quot;&gt;
+      &lt;label for&#x3D;&quot;identificationNum&quot;&gt;
+        Identification number:
+        &lt;div
+        *ngIf&#x3D;&quot;!identificationNum.valid &amp;&amp; (identificationNum.dirty || identificationNum.touched)&quot;
+        class&#x3D;&quot;alert alert-warning&quot;
+        &gt;
+        &lt;div *ngIf&#x3D;&quot;identificationNum.errors?.[&#x27;required&#x27;]&quot;&gt;Identification number is required.&lt;/div&gt;
+        &lt;div *ngIf&#x3D;&quot;identificationNum.errors?.[&#x27;minlength&#x27;]&quot;&gt;Identification number must be at least 5 characters long.&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/label&gt;
+      &lt;input
+        type&#x3D;&quot;text&quot;
+        #identificationNum&#x3D;&quot;ngModel&quot;
+        class&#x3D;&quot;form-control&quot;
+        name&#x3D;&quot;identificationNum&quot;
+        placeholder&#x3D;&quot;Enter identification number&quot;
+        id&#x3D;&quot;identificationNum&quot;
+        [(ngModel)]&#x3D;&quot;employee.identificationNum&quot;
+        minlength&#x3D;&quot;5&quot;
+        required
+      /&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;mb-3&quot;&gt;
+      &lt;label for&#x3D;&quot;entryDate&quot;&gt;Date of entry:&lt;/label&gt;
+      &lt;div class&#x3D;&quot;col-5&quot;&gt;
+        &lt;input
+          type&#x3D;&quot;date&quot;
+          #entryDate&#x3D;&quot;ngModel&quot;
+          class&#x3D;&quot;form-control form-date&quot;
+          name&#x3D;&quot;entryDate&quot;
+          id&#x3D;&quot;entryDate&quot;
+          [(ngModel)]&#x3D;&quot;employee.entryDate&quot;
+          [min]&#x3D;&quot;minDate&quot;
+          [max]&#x3D;&quot;maxDate&quot;
+          required
+        /&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;mb-3&quot;&gt;
+      &lt;label for&#x3D;&quot;workArea&quot;&gt;Work area:&lt;/label&gt;
+      &lt;select class&#x3D;&quot;form-select&quot; #workArea&#x3D;&quot;ngModel&quot; name&#x3D;&quot;workArea&quot; id&#x3D;&quot;workArea&quot; [(ngModel)]&#x3D;&quot;employee.workArea&quot; required&gt;
+        &lt;option value&#x3D;&quot;ADMINISTRATION&quot;&gt;Administration&lt;/option&gt;
+        &lt;option value&#x3D;&quot;FINANCE&quot;&gt;Finance&lt;/option&gt;
+        &lt;option value&#x3D;&quot;PROCUREMENT&quot;&gt;Procurement&lt;/option&gt;
+        &lt;option value&#x3D;&quot;INFRASTRUCTURE&quot;&gt;Infraestructure&lt;/option&gt;
+        &lt;option value&#x3D;&quot;OPERATIONS&quot;&gt;Operations&lt;/option&gt;
+        &lt;option value&#x3D;&quot;HUMAN_RESOURCES&quot;&gt;Human resources&lt;/option&gt;
+        &lt;option value&#x3D;&quot;MISCELLANEOUS_SERVICES&quot;&gt;Miscellaneous services&lt;/option&gt;
+      &lt;/select&gt;
+    &lt;/div&gt;
+    &lt;button type&#x3D;&quot;submit&quot; class&#x3D;&quot;btn btn-success&quot; [disabled]&#x3D;&quot;!formEmployee.form.valid&quot;&gt;Edit&lt;/button&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="containter">    <!--TODO: Add validations on front-->  <h3 class="h3 mt-5">Edit employee: </h3>  <form #formEmployee="ngForm" (ngSubmit)="onSubmit()" class="col-lg-6 m-5 p-3">    <div class="mb-3 mt-3">      <label for="fisrtName">        First name:        <div        *ngIf="!firstName.valid && (firstName.dirty || firstName.touched)"        class="alert alert-warning"        >        <div *ngIf="firstName.errors?.[\'required\']">First name is required.</div>        <div *ngIf="firstName.errors?.[\'minlength\']">First name must be at least 2 characters long.</div>        </div>    </label>      <input        type="text"        #firstName="ngModel"        class="form-control"        name="firstName"        placeholder="Enter first name"        id="firstName"        [(ngModel)]="employee.firstName"        minlength="2"        required      />    </div>    <div class="mb-3">      <label for="otherNames">        Other names:      </label>      <input        type="text"        #otherNames="ngModel"        class="form-control"        name="otherNames"        placeholder="Enter other names"        id="otherNames"        [(ngModel)]="employee.otherNames"      />    </div>    <div class="mb-3">      <label for="firstLastName">        Lastname:        <div        *ngIf="!firstLastName.valid && (firstLastName.dirty || firstLastName.touched)"        class="alert alert-warning"        >        <div *ngIf="firstLastName.errors?.[\'required\']">Lastname is required.</div>        <div *ngIf="firstLastName.errors?.[\'minlength\']">Lastname must be at least 2 characters long.</div>        </div>        </label>      <input        type="text"        #firstLastName="ngModel"        class="form-control"        name="firstLastName"        placeholder="Enter first lastname"        id="firstLastName"        [(ngModel)]="employee.firstLastName"        minlength="2"        required      />    </div>    <div class="mb-3">      <label for="secondLastName">        Second Lastname:        <div        *ngIf="!secondLastName.valid && (secondLastName.dirty || secondLastName.touched)"        class="alert alert-warning"        >        <div *ngIf="secondLastName.errors?.[\'required\']">Second lastname is required.</div>        <div *ngIf="secondLastName.errors?.[\'minlength\']">Second lastname must be at least 2 characters long.</div>        </div>      </label>      <input        type="text"        #secondLastName="ngModel"        class="form-control"        name="secondLastName"        placeholder="Enter second Lastname"        id="secondLastName"        [(ngModel)]="employee.secondLastName"        minlength="2"        required      />    </div>    <div class="mb-3">      <label for="country">Country:</label>      <select class="form-select" #country="ngModel" name="country" id="country" [(ngModel)]="employee.country" required>        <option value="CO">Colombia</option>        <option value="EU">United States</option>      </select>    </div>    <div class="mb-3">      <label for="idType">Identification type:</label>      <select class="form-select" #idType="ngModel" name="idType" id="idType" [(ngModel)]="employee.idType" required>        <option value="CITIZENSHIP_CARD">Citiezenship card</option>        <option value="FOREIGNER_ID">Foreigner id</option>        <option value="PASSPORT">Passport</option>        <option value="SPECIAL_PERMISSION">Special permission</option>      </select>    </div>    <div class="mb-3">      <label for="identificationNum">        Identification number:        <div        *ngIf="!identificationNum.valid && (identificationNum.dirty || identificationNum.touched)"        class="alert alert-warning"        >        <div *ngIf="identificationNum.errors?.[\'required\']">Identification number is required.</div>        <div *ngIf="identificationNum.errors?.[\'minlength\']">Identification number must be at least 5 characters long.</div>        </div>    </label>      <input        type="text"        #identificationNum="ngModel"        class="form-control"        name="identificationNum"        placeholder="Enter identification number"        id="identificationNum"        [(ngModel)]="employee.identificationNum"        minlength="5"        required      />    </div>    <div class="mb-3">      <label for="entryDate">Date of entry:</label>      <div class="col-5">        <input          type="date"          #entryDate="ngModel"          class="form-control form-date"          name="entryDate"          id="entryDate"          [(ngModel)]="employee.entryDate"          [min]="minDate"          [max]="maxDate"          required        />      </div>    </div>    <div class="mb-3">      <label for="workArea">Work area:</label>      <select class="form-select" #workArea="ngModel" name="workArea" id="workArea" [(ngModel)]="employee.workArea" required>        <option value="ADMINISTRATION">Administration</option>        <option value="FINANCE">Finance</option>        <option value="PROCUREMENT">Procurement</option>        <option value="INFRASTRUCTURE">Infraestructure</option>        <option value="OPERATIONS">Operations</option>        <option value="HUMAN_RESOURCES">Human resources</option>        <option value="MISCELLANEOUS_SERVICES">Miscellaneous services</option>      </select>    </div>    <button type="submit" class="btn btn-success" [disabled]="!formEmployee.form.valid">Edit</button>  </form></div></div>'
+    var COMPONENTS = [{'name': 'AddEmployeeComponent', 'selector': 'app-add-employee'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'DetailEmployeeComponent', 'selector': 'app-detail-employee'},{'name': 'EditEmployeeComponent', 'selector': 'app-edit-employee'},{'name': 'EmployeesListComponent', 'selector': 'app-employee'},{'name': 'ErrorComponent', 'selector': 'app-error'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'EditEmployeeComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'EditEmployeeComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

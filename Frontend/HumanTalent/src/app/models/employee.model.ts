@@ -1,3 +1,6 @@
+/**
+ * Estructura del empleado, se utiliza para facilitar la manipulacion de los datos con el API.
+ */
 export class Employee {
     id?: any;
     type?: string = "employee";
@@ -13,5 +16,4 @@ export class Employee {
     workArea?: string;
     state?: boolean;
     regDateTime?: string;
-    
 }
